@@ -1,0 +1,12 @@
+// Here you can add other styles
+
+.margin-btn{
+    margin: 0 5px;
+}
+
+.form-group.required .col-form-label:after{
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: 5px;
+ }
