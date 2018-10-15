@@ -9,12 +9,14 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { DefaultLayoutComponent } from './containers/default-layout';
 import { ProvincesComponent } from './views/base-setting/provinces/provinces.component';
+import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: '404',
@@ -47,10 +49,12 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: './views/dashboard/dashboard.module#DashboardModule',
+        canActivate: [AuthGuard]
       },
       {
         path: 'provinces',
         loadChildren: './views/base-setting/provinces/provinces.module#ProvincesModule',
+        canActivate: [AuthGuard]
       },
     ]
   }

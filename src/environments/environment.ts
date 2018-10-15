@@ -6,8 +6,8 @@
 export const environment = {
   production: false,
   apiHeaderAuth: "Authorization",
-  apiHeaderAccept: "Accept",
+  apiHeaderContentType: "Content-Type",
   apiHeaderJson: "application/json",
-  //apiUrl: "http://128.199.246.107:8000",
-  apiUrl: "http://localhost:8000",
+  apiUrl: "http://128.199.246.107",
+  //apiUrl: "http://localhost:8000",
 };
