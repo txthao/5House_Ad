@@ -33,7 +33,7 @@ export class ProvincesService extends APIService {
     public updateProvince(province: Province) {
         let data = {
             "province_name": province.province_name,
-            "updated_by": "ThaoTX"
+            "updated_by": province.updated_by
         };
         return super.apiPost<ApiResult>(ApiConstants.PROVINCE_API + '/update/' + province.id, data);
     }
@@ -42,11 +42,4 @@ export class ProvincesService extends APIService {
         return super.apiPost<ApiResult>(ApiConstants.PROVINCE_API + '/delete/' + provinceId);
     }
 
-    public login() {
-        let data = {
-            "email": 'thao.pttg@gmail.com',
-            "password": '123456'
-        };
-        return super.apiPost<any>('/api/login', data, null, false);
-    }
 }

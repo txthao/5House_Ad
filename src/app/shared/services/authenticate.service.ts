@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-//import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BehaviorSubject } from 'rxjs';
 import { Session } from '../models/auth/session';
 import { APIService } from './api.service';
@@ -17,7 +16,8 @@ export class AuthenticateService extends APIService {
         let token = localStorage.getItem('token');
         if (token != null) {
             let email = localStorage.getItem('email');
-            let session = new Session(token, email);
+            let name = localStorage.getItem('name');
+            let session = new Session(token, email, name);
             this.setSession(session);
         }
     }
@@ -26,6 +26,7 @@ export class AuthenticateService extends APIService {
         //save data into local storage
         localStorage.setItem('token', session.token);
         localStorage.setItem('email', session.email || '');
+        localStorage.setItem('name', session.name || '');
         this.sessionSource.next(session);
     }
 

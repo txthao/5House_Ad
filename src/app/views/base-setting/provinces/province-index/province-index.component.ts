@@ -35,7 +35,6 @@ export class ProvinceIndexComponent implements OnInit {
           this.provinces = res.data.data;
           this.totalItems = res.data.total;
           this.itemsPerPage = res.data.per_page;
-          console.log(this.provinces);
         }
       },
       err => {

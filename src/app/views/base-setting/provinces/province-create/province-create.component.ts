@@ -5,43 +5,44 @@ import { ProvincesService } from '../../../../shared/services/provinces.service'
 import { Province } from '../../../../shared/models/base-setting/province';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { AuthenticateService } from '../../../../shared/services/authenticate.service';
+import { Session } from '../../../../shared/models/auth/session';
 
 @Component({
   selector: 'app-province-create',
   templateUrl: './province-create.component.html'
 })
 export class ProvinceCreateComponent implements OnInit {
-  
+
   provinces = [];
-  constructor(private provincesService: ProvincesService, private router: Router,  private alertService: AlertService) { }
+  session: Session;
+  constructor(private provincesService: ProvincesService, private router: Router, private alertService: AlertService,
+    private authService: AuthenticateService) { }
 
   ngOnInit() {
+    this.authService.session$.subscribe(data => this.session = data);
     this.newItem();
 
   }
 
-  newItem(){
+  newItem() {
     let province = new Province();
     province.index = this.provinces.length;
-    province.created_by = "ThaoPT";
-   // province.province_name = 'a';
+    province.created_by = this.session.name;
     this.provinces.push(province);
-    console.log(this.provinces.length);
   }
 
-  removeItem(index){
-    this.provinces.splice(index,1);
+  removeItem(index) {
+    this.provinces.splice(index, 1);
   }
 
   createProvince() {
-    console.log(this.provinces);
     this.provincesService.createProvince(this.provinces).subscribe(
       res => {
         if (res.success) {
-          console.log(res);
           this.alertService.success('Successfully Created', true, true);
           this.router.navigateByUrl('/provinces');
-        } 
+        }
       },
       err => {
         console.log(err);

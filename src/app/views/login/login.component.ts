@@ -20,7 +20,15 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(){
-
+    //redirect to homepage if user already logged in
+    this.authService.session$.subscribe(
+      data => {
+        this.session = data;
+        if (this.session && this.session.token != null) {
+          this.router.navigate(['/']);
+        }
+      }
+    );
   }
 
   login() {
@@ -28,7 +36,7 @@ export class LoginComponent implements OnInit{
       res => {
         if (res.token) {
           let token = res.token;
-          this.session = new Session(token, this.loginVM.email);
+          this.session = new Session(token, this.loginVM.email, res.name);
           this.authService.setSession(this.session);
           let url = this.authService.redirectUrl ? this.authService.redirectUrl : '';
           this.authService.redirectUrl = null;
