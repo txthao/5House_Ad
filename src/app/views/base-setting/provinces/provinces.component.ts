@@ -14,5 +14,5 @@ export class ProvincesComponent implements OnInit {
   ngOnInit() {
    
   }
-
+ 
 }

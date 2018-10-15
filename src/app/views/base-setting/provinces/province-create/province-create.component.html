@@ -7,14 +7,22 @@
       </div>
       <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && createProvince()" novalidate>
         <div class="card-body">
-          <div class="form-group row required">
-            <label class="col-md-3 col-form-label font-weight-bold">Provinces Name
-            </label>
-            <div class="col-md-9">
-              <input type="text" name="name" [(ngModel)]="province.province_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
-              #name="ngModel" class="form-control" required placeholder="Name ...">
-              <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-                <div *ngIf="name.errors.required">Name is required</div>
+          <div *ngFor="let province of provinces; let i = index">
+            <div class="form-group row required">
+              <label class="col-md-3 col-form-label font-weight-bold">Provinces Name
+              </label>
+              <div class="col-md-7">
+                <input type="text" name="name_{{i}}" [(ngModel)]="province.province_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
+                  #name="ngModel" class="form-control" required placeholder="Name ...">
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required">Name is required</div>
+                </div>
+              </div>
+              <div class="col-md-1 mt-1">
+                  <div *ngIf="provinces.length!=1" class="btn btn-sm btn-danger btn-block" (click)="provinces.length>1&&removeItem(i)"><i class="fa fa-minus"></i></div>
+              </div>
+              <div class="col-md-1 mt-1">
+                <div *ngIf="provinces.length==(i+1)" class="btn btn-sm btn-success btn-block" (click)="newItem()"> <i class="fa fa-plus"></i></div>
               </div>
             </div>
           </div>

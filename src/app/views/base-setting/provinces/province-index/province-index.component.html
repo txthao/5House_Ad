@@ -25,11 +25,9 @@
                 <td>{{province.province_name}}</td>
                 <td>
                   <span class="btn btn-success btn-sm" [routerLink]="[province.id]">Edit</span>
-                  <span class="btn btn-danger btn-sm margin-btn" (click)="deleteProvince(province.id)">Delete</span>
+                  <span class="btn btn-danger btn-sm ml-1" (click)="deleteProvince(province.id)">Delete</span>
                 </td>
               </tr>
-
-
             </tbody>
           </table>
 

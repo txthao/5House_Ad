@@ -26,12 +26,8 @@ export class ProvincesService extends APIService {
 
     }
 
-    public createProvince(province: Province) {
-        let data = {
-            "province_name": province.province_name,
-            "created_by": "ThaoPT",
-        };
-        return super.apiPost<ApiResult>(ApiConstants.PROVINCE_API + '/create', data);
+    public createProvince(provinces: Province[]) {
+        return super.apiPost<ApiResult>(ApiConstants.PROVINCE_API + '/create', provinces);
     }
 
     public updateProvince(province: Province) {

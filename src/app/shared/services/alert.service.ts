@@ -22,14 +22,15 @@ export class AlertService {
         });
     }
 
-    success(message: string, keepAfterNavigationChange = false, timeout: number = 2000) {
+
+    success(message: string, keepAfterNavigationChange = false, isTimeout = false, timeout = 2000) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message, timeout: timeout});
+        this.subject.next({ type: 'success', text: message, isTimeout: isTimeout, timeout: timeout });
     }
 
-    error(message: string, keepAfterNavigationChange = false, timeout: number = 2000) {
+    error(message: string, keepAfterNavigationChange = false, isTimeout = false, timeout = 2000) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message, timeout: timeout});
+        this.subject.next({ type: 'error', text: message, isTimeout: isTimeout, timeout: timeout });
     }
 
     getMessage(): Observable<any> {

@@ -43,6 +43,7 @@ import { ProvincesModule } from './views/base-setting/provinces/provinces.module
 import { AlertService } from './shared/services/alert.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthenticateService } from './shared/services/authenticate.service';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -55,8 +56,10 @@ import { AuthenticateService } from './shared/services/authenticate.service';
     AppHeaderModule,
     AppSidebarModule,
     PerfectScrollbarModule,
+    BsDropdownModule.forRoot(),
     ChartsModule, 
     HttpClientModule,
+    FormsModule,
     SharedModule, 
     ProvincesModule
   ],

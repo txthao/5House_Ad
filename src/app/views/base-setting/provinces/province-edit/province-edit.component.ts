@@ -36,7 +36,7 @@ export class ProvinceEditComponent implements OnInit {
     this.provincesService.updateProvince(this.province).subscribe(
       res => {
         if (res.success) {
-          this.alertService.success('Successfully Updated', true);
+          this.alertService.success('Successfully Updated', true, true);
           this.router.navigateByUrl('/provinces');
         }
       },
