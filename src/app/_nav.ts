@@ -22,9 +22,19 @@ export const navItems = [
         url: '/provinces',
         icon: 'icon-puzzle'
       },
+      {
+        name: '4. Quận/Huyện',
+        url: '/districts',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: '5. Phường/Xã',
+        url: '/wards',
+        icon: 'icon-puzzle'
+      },
     ]
   },
-  
+
   {
     divider: true
   },
@@ -59,5 +69,5 @@ export const navItems = [
       }
     ]
   },
-  
+
 ];

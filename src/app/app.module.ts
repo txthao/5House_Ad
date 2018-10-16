@@ -44,6 +44,8 @@ import { AlertService } from './shared/services/alert.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthenticateService } from './shared/services/authenticate.service';
 import { FormsModule } from '@angular/forms';
+import {DispatchArg} from 'rxjs/internal/observable/SubscribeOnObservable';
+import {DistrictsModule} from './views/base-setting/districts/districts.module';
 
 
 @NgModule({
@@ -57,11 +59,12 @@ import { FormsModule } from '@angular/forms';
     AppSidebarModule,
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
-    ChartsModule, 
+    ChartsModule,
     HttpClientModule,
     FormsModule,
-    SharedModule, 
-    ProvincesModule
+    SharedModule,
+    ProvincesModule,
+    DistrictsModule
   ],
   declarations: [
     AppComponent,
@@ -69,7 +72,7 @@ import { FormsModule } from '@angular/forms';
     P404Component,
     P500Component,
     LoginComponent,
-   
+
   ],
   providers: [AuthenticateService, AuthGuardService, AlertService],
   bootstrap: [ AppComponent ]
