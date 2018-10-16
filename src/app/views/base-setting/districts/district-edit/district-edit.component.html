@@ -5,13 +5,13 @@
       <div class="card-header">
         <strong> Districts</strong>
       </div>
-      <form class="form-horizontal" name="form" #f="ngForm">
+      <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateDistrict()" novalidate>
         <div class="card-body">
           <div class="form-group row required">
             <label class="col-md-3 col-form-label font-weight-bold">Province Name</label>
             <div class="col-md-9">
-              <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="provinceId">
-                <option value="" disabled>Chọn Tỉnh/Thành</option>
+              <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="district.province_id">
+                <option value="undefined" disabled>Chọn Tỉnh/Thành</option>
                 <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
               </select>
             </div>

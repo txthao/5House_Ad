@@ -16,7 +16,7 @@
               <div class="form-group">
                 <label for="provinces">Tỉnh/Thành</label>
                 <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="selectedProvince" (ngModelChange)="onSelectedProvince($event)">
-                  <option value="" disabled>Chọn Tỉnh/Thành</option>
+                  <option value="undefined" disabled>Chọn Tỉnh/Thành</option>
                   <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
                 </select>
               </div>
@@ -35,6 +35,7 @@
             <thead>
             <tr>
               <th>Tên</th>
+              <th>Tỉnh/Thành</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -42,8 +43,9 @@
             <tr *ngIf="!districts" class="warning">
               <td colspan="11" align="center">Không có dữ liệu</td>
             </tr>
-            <tr *ngFor="let district of districts">
+            <tr *ngFor="let district of districts; let province of provinces">
               <td>{{district.district_name}}</td>
+              <td>{{province.province_name}}</td>
               <td>
                 <span class="btn btn-success btn-sm" [routerLink]="[district.id]">Sửa</span>
                 <span class="btn btn-danger btn-sm ml-1" (click)="deleteDistrict(district.id)">Xóa</span>

@@ -19,13 +19,10 @@ export class DistrictIndexComponent implements OnInit {
   itemsPerPage: number;
   maxSize = Constants.MAXSIZE_PAGINATION;
   districts: District[];
-  districtsFilter: District[];
   provinces: Province[];
   districts_name = [];
-  abc = [];
-  selectedProvince: any = "";
+  selectedProvince: any;
   selectedDistrict: any;
-
 
   constructor(private provincesService: ProvincesService, private alertService: AlertService, private districtsService: DistrictsService) {
   }
@@ -67,24 +64,7 @@ export class DistrictIndexComponent implements OnInit {
       });
   }
 
-  // searchDistrictsForInput(provinceId: string = null, districtName: string = null) {
-  //   this.districtsService.searchDistricts(provinceId, districtName).subscribe(
-  //     res => {
-  //       if (res.success) {
-  //         this.districtsFilter = res.data;
-  //         this.totalItems = res.data.total;
-  //         this.itemsPerPage = res.data.per_page;
-  //         this.districts_name = this.districtsFilter.map(item => item.district_name);
-  //       }
-  //     },
-  //     err => {
-  //       console.log(err);
-  //     });
-  // }
-
   searchDistricts(provinceId: string = null, districtName: string = null) {
-    // console.log(provinceId);
-    // console.log(districtName);
     this.districtsService.searchDistricts(provinceId, districtName).subscribe(
       res => {
         if (res.success) {
@@ -99,26 +79,24 @@ export class DistrictIndexComponent implements OnInit {
       });
   }
 
-  // deleteDistrict(id: number) {
-  //   this.districtsService.deleteDistrict(id).subscribe(
-  //     res => {
-  //       if (res.success) {
-  //         this.alertService.success('Successfully Deleted!!!');
-  //         this.getDistricts();
-  //       }
-  //     },
-  //     err => {
-  //       console.log(err);
-  //     });
-  // }
+  deleteDistrict(id: number) {
+    this.districtsService.deleteDistrict(id).subscribe(
+      res => {
+        if (res.success) {
+          this.alertService.success('Successfully Deleted!!!');
+          this.getDistricts();
+        }
+      },
+      err => {
+        console.log(err);
+      });
+  }
 
   getProvinces() {
-    this.provincesService.getProvinces(this.currentPage).subscribe(
+    this.provincesService.getProvinces().subscribe(
       res => {
         if (res.success) {
           this.provinces = res.data.data;
-          this.totalItems = res.data.total;
-          this.itemsPerPage = res.data.per_page;
         }
       },
       err => {
