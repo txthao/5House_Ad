@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Constants} from '../../../../shared/config/constants';
-import {Utils} from '../../../../shared/config/utils';
-import {District} from '../../../../shared/models/base-setting/district';
-import {DistrictsService} from '../../../../shared/services/districts.service';
-import {Province} from '../../../../shared/models/base-setting/province';
-import {ProvincesService} from '../../../../shared/services/provinces.service';
-import {AlertService} from '../../../../shared/services/alert.service';
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Constants } from '../../../../shared/config/constants';
+import { Utils } from '../../../../shared/config/utils';
+import { District } from '../../../../shared/models/base-setting/district';
+import { DistrictsService } from '../../../../shared/services/districts.service';
+import { Province } from '../../../../shared/models/base-setting/province';
+import { ProvincesService } from '../../../../shared/services/provinces.service';
+import { AlertService } from '../../../../shared/services/alert.service';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-district-index',
@@ -23,6 +23,7 @@ export class DistrictIndexComponent implements OnInit {
   districts_name = [];
   selectedProvince: any;
   selectedDistrict: any;
+  selectedAll = false;
 
   constructor(private provincesService: ProvincesService, private alertService: AlertService, private districtsService: DistrictsService) {
   }
@@ -38,14 +39,15 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   onSelectedProvince(value) {
-    // console.log(value);
     this.selectedDistrict = "";
     this.selectedProvince = value;
+    this.selectedAll = false;
 
     this.searchDistricts(this.selectedProvince, null);
   }
 
   onSearch() {
+    this.selectedAll = false;
     this.searchDistricts(this.selectedProvince, this.selectedDistrict);
   }
 
@@ -103,7 +105,26 @@ export class DistrictIndexComponent implements OnInit {
         console.log(err);
       });
   }
-  
+
+  checkAll() {
+    console.log(this.selectedAll);
+
+    if (this.selectedAll) {
+      this.districts.forEach(i => {
+        i.checked = true;
+      });
+    } else {
+      this.districts.forEach(i => {
+        i.checked = false;
+      });
+    }
+    
+  }
+
+  updateCheck() {
+    this.selectedAll = this.districts.every(i => i.checked === true)
+  }
+
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),

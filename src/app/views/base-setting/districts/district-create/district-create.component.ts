@@ -38,8 +38,6 @@ export class DistrictCreateComponent implements OnInit {
   newItem() {
     let district = new District();
     district.index = this.districts.length;
-    // district.created_by = this.session.name;
-    // district.province_id = this.provinceId;
     this.districts.push(district);
   }
 
