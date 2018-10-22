@@ -4,9 +4,9 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Quận/Huyện
+          <i class="fa fa-align-justify"></i> Districts
           <span class="btn btn-primary btn-sm float-right" [routerLink]="['create']">
-            <i class="fa fa-plus"></i> Thêm
+            <i class="fa fa-plus"></i> Add
           </span>
         </div>
 
@@ -14,49 +14,51 @@
           <form class="row" style="margin-bottom: 20px" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSearch()">
             <div class="col-lg-4">
               <div class="form-group">
-                <label for="provinces">Tỉnh/Thành</label>
+                <label for="provinces">Provinces</label>
                 <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="selectedProvince" (ngModelChange)="onSelectedProvince($event)">
-                  <option value="undefined" disabled>Chọn Tỉnh/Thành</option>
+                  <option value="">All Provinces</option>
                   <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
                 </select>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group">
-                <label for="typeahead-format">Quận/Huyện</label>
+                <label for="typeahead-format">Districts</label>
                 <input id="typeahead-format" type="text" name="select-districts" class="form-control" [(ngModel)]="selectedDistrict" [ngbTypeahead]="search"/>
               </div>
             </div>
             <div class="col-lg-2" style="display: flex; align-items: center; justify-content: center;">
-              <button type="submit" class="btn btn-primary" style="margin-top: 12px">Tìm kiếm</button>
+              <button type="submit" class="btn btn-primary" style="margin-top: 12px">Search</button>
             </div>
           </form>
           <table class="table table-striped">
             <thead>
             <tr>
               <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="checkAll()"/></th>
-              <th>Tên</th>
-              <th>Tỉnh/Thành</th>
+              <th>Name</th>
+              <th>Province</th>
               <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngIf="!districts || districts.length === 0" class="warning">
-              <td colspan="11" align="center">Không có dữ liệu</td>
+              <td colspan="11" align="center">No data</td>
             </tr>
-            <tr *ngFor="let district of districts; let province of provinces;">
+            <tr *ngFor="let district of districts">
               <td><input type="checkbox" [(ngModel)]="district.checked" (change)="updateCheck()"/></td>
               <td>{{district.district_name}}</td>
-              <td>{{province.province_name}}</td>
+              <td>{{district.province_name}}</td>
               <td>
-                <span class="btn btn-success btn-sm" [routerLink]="[district.id]">Sửa</span>
-                <span class="btn btn-danger btn-sm ml-1" (click)="deleteDistrict(district.id)">Xóa</span>
+                <span class="btn btn-success btn-sm" [routerLink]="[district.id]">Edit</span>
+                <span class="btn btn-danger btn-sm ml-1" (click)="deleteDistrict(district.id)">Delete</span>
               </td>
             </tr>
-
-
             </tbody>
           </table>
+          
+          <div style="margin-left: 75%; margin-bottom: 20px">
+            <button class="btn btn-danger btn-sm ml-1" (click)="deleteAllDistrict()">Delete All</button>
+          </div>
 
           <div class="pagination row">
             <div class="col-xs-12 col-12">

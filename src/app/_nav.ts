@@ -23,12 +23,12 @@ export const navItems = [
         icon: 'icon-puzzle'
       },
       {
-        name: '4. Quận/Huyện',
+        name: '4. Districts',
         url: '/districts',
         icon: 'icon-puzzle'
       },
       {
-        name: '5. Phường/Xã',
+        name: '5. Wards',
         url: '/wards',
         icon: 'icon-puzzle'
       },

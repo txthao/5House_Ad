@@ -22,13 +22,16 @@ export class DistrictsService extends APIService {
 
   public searchDistricts(provinceId: string = null, districtName: string = null) {
     let params = '';
+
     if (provinceId) {
       params = "?province_id=" + provinceId;
     }
+
     if (districtName) {
       params += params ? '&district_name=' : '?district_name=';
       params += districtName;
     }
+
     console.log(districtName);
     console.log(params);
     return super.apiGet<ApiResult>(ApiConstants.DISTRICT_API + '/find' + params);
@@ -36,7 +39,6 @@ export class DistrictsService extends APIService {
 
   public getDistrict(id: number) {
     return super.apiGet<ApiResult>(ApiConstants.DISTRICT_API + '/details/' + id);
-
   }
 
   public createDistrict(name: string, province_id: string, districts: District[]) {
@@ -48,8 +50,6 @@ export class DistrictsService extends APIService {
       "data": districts
     };
 
-
-
     return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API, data);
   }
 
@@ -59,10 +59,16 @@ export class DistrictsService extends APIService {
       "province_id": district.province_id,
       "updated_by": district.created_by
     };
+
     return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API + '/update/' + district.id, data);
   }
 
-  public deleteDistrict(districtId: number) {
-    return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API + '/delete/' + districtId);
+  public deleteDistrict(name: string, districtIds: number[]) {
+    let data = {
+      "updated_by": name,
+      "ids": districtIds
+    };
+
+    return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API + '/delete/', data);
   }
 }

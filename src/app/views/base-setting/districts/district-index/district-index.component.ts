@@ -8,6 +8,8 @@ import { ProvincesService } from '../../../../shared/services/provinces.service'
 import { AlertService } from '../../../../shared/services/alert.service';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Session } from '../../../../shared/models/auth/session';
+import { AuthenticateService } from '../../../../shared/services/authenticate.service';
 
 @Component({
   selector: 'app-district-index',
@@ -21,14 +23,17 @@ export class DistrictIndexComponent implements OnInit {
   districts: District[];
   provinces: Province[];
   districts_name = [];
-  selectedProvince: any;
+  selectedProvince: any = '';
   selectedDistrict: any;
   selectedAll = false;
+  session: Session;
 
-  constructor(private provincesService: ProvincesService, private alertService: AlertService, private districtsService: DistrictsService) {
+  constructor(private provincesService: ProvincesService, private alertService: AlertService,
+    private districtsService: DistrictsService, private authService: AuthenticateService) {
   }
 
   ngOnInit() {
+    this.authService.session$.subscribe(data => this.session = data);
     this.getProvinces();
     this.getDistricts();
   }
@@ -82,7 +87,30 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   deleteDistrict(id: number) {
-    this.districtsService.deleteDistrict(id).subscribe(
+    let ids = [id];
+
+    this.districtsService.deleteDistrict(this.session.name, ids).subscribe(
+      res => {
+        if (res.success) {        
+          this.alertService.success('Successfully Deleted!!!');
+          this.getProvinces();
+        }
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteAllDistricts() {
+    let ids: number[];
+
+    this.districts.forEach(i => {
+      if (i.checked = true) {
+        ids.push(i.id);
+      }
+    });
+
+    this.districtsService.deleteDistrict(this.session.name, ids).subscribe(
       res => {
         if (res.success) {
           this.alertService.success('Successfully Deleted!!!');

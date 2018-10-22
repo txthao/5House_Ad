@@ -8,7 +8,7 @@ import {DistrictCreateComponent} from './district-create/district-create.compone
 const routes: Routes = [{
   path: '',
   component: DistrictsComponent,
-  data: {title: 'Quận/Huyện'},
+  data: {title: 'Districts'},
   children: [
     {
       path: '',
@@ -18,12 +18,12 @@ const routes: Routes = [{
     {
       path: 'create',
       component: DistrictCreateComponent,
-      data: {title: 'Thêm Quận/Huyện'}
+      data: {title: 'Add Districts'}
     },
     {
       path: ':id',
       component: DistrictEditComponent,
-      data: {title: 'Chỉnh sửa Quận/Huyện'}
+      data: {title: 'Edit Districts'}
     },
   ]
 }];
