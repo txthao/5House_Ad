@@ -26,6 +26,7 @@ export class DistrictIndexComponent implements OnInit {
   selectedProvince: any = '';
   selectedDistrict: any;
   selectedAll = false;
+  isChecked = false;
   session: Session;
 
   constructor(private provincesService: ProvincesService, private alertService: AlertService,
@@ -36,6 +37,8 @@ export class DistrictIndexComponent implements OnInit {
     this.authService.session$.subscribe(data => this.session = data);
     this.getProvinces();
     this.getDistricts();
+
+    console.log(this.isChecked);
   }
 
   pageChanged(event: any): void {
@@ -93,7 +96,7 @@ export class DistrictIndexComponent implements OnInit {
       res => {
         if (res.success) {        
           this.alertService.success('Successfully Deleted!!!');
-          this.getProvinces();
+          this.getDistricts();
         }
       },
       err => {
@@ -102,13 +105,15 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   deleteAllDistricts() {
-    let ids: number[];
+    let ids = [];
 
     this.districts.forEach(i => {
-      if (i.checked = true) {
+      if (i.checked) {
         ids.push(i.id);
       }
     });
+
+    console.log(ids);
 
     this.districtsService.deleteDistrict(this.session.name, ids).subscribe(
       res => {
@@ -140,17 +145,26 @@ export class DistrictIndexComponent implements OnInit {
     if (this.selectedAll) {
       this.districts.forEach(i => {
         i.checked = true;
+        this.isChecked = true;
       });
     } else {
       this.districts.forEach(i => {
         i.checked = false;
+        this.isChecked = false;
       });
     }
     
   }
 
   updateCheck() {
-    this.selectedAll = this.districts.every(i => i.checked === true)
+    this.selectedAll = this.districts.every(i => i.checked === true);
+    
+    this.isChecked = false;
+    this.districts.forEach(i => {
+      if (i.checked) {this.isChecked = true;}
+    });
+
+    console.log(this.isChecked);
   }
 
   search = (text$: Observable<string>) =>
