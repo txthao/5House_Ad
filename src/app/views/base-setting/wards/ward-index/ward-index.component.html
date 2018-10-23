@@ -1,3 +1,89 @@
-<p>
-  ward-index works!
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <!--/.col-->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Districts
+          <span class="btn btn-primary btn-sm float-right" [routerLink]="['create']">
+            <i class="fa fa-plus"></i> Add
+          </span>
+        </div>
+
+        <div class="card-body">
+          <form class="row" style="margin-bottom: 20px" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSearch()">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="provinces">Provinces</label>
+                <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="selectedProvince" (ngModelChange)="onSelectedProvince($event)">
+                  <option value="">All Provinces</option>
+                  <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="provinces">Districts</label>
+                <select class="form-control" id="districts" name="select-districts" [(ngModel)]="selectedDistrict" (ngModelChange)="onSelectedDistrict($event)">
+                  <option value="">All Districts</option>
+                  <option *ngFor="let item of districts" [ngValue]="item.id"> {{ item.district_name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="typeahead-format">Wards</label>
+                <input id="typeahead-format" type="text" name="select-wards" class="form-control" [(ngModel)]="selectedWard" [ngbTypeahead]="search"/>
+              </div>
+            </div>
+            <div class="col-lg-3" style="display: flex; align-items: center; justify-content: center;">
+              <button type="submit" class="btn btn-primary" style="margin-top: 12px">Search</button>
+            </div>
+          </form>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="checkAll()"/></th>
+              <th>Name</th>
+              <th>District</th>
+              <th>Province</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="!wards || wards.length === 0" class="warning">
+              <td colspan="11" align="center">No data</td>
+            </tr>
+            <tr *ngFor="let ward of wards">
+              <td><input type="checkbox" [(ngModel)]="ward.checked" (change)="updateCheck()"/></td>
+              <td>{{ward.ward_name}}</td>
+              <td>{{ward.district_name}}</td>
+              <td>{{ward.province_name}}</td>
+              <td>
+                <span class="btn btn-success btn-sm" [routerLink]="[ward.id]">Edit</span>
+                <span class="btn btn-danger btn-sm ml-1" (click)="deleteWard(ward.id)">Delete</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          
+          <div *ngIf="wards && wards.length > 0 && isChecked === true" class="col-lg-10">
+            <button class="btn btn-danger btn-sm ml-1 float-right" (click)="deleteAllWards()">Delete All</button>
+          </div>
+
+          <div class="pagination row" style="clear: both;">
+            <div class="col-xs-12 col-12">
+              <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md"
+                          previousText="&lsaquo;"
+                          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+                          [rotate]="false" [itemsPerPage]="itemsPerPage"
+                          (pageChanged)="pageChanged($event)"></pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

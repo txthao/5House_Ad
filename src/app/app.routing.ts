@@ -8,7 +8,6 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { DefaultLayoutComponent } from './containers/default-layout';
-import { ProvincesComponent } from './views/base-setting/provinces/provinces.component';
 import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
 export const routes: Routes = [

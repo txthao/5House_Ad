@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ward-create',
-  templateUrl: './ward-create.component.html',
-  styleUrls: ['./ward-create.component.scss']
+  templateUrl: './ward-create.component.html'
 })
 export class WardCreateComponent implements OnInit {
 

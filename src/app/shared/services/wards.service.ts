@@ -40,23 +40,23 @@ export class WardsService extends APIService {
 
     console.log(wardName);
     console.log(params);
-    return super.apiGet<ApiResult>(ApiConstants.DISTRICT_API + '/find' + params);
+    return super.apiGet<ApiResult>(ApiConstants.WARD_API + '/find' + params);
   }
 
   public getWard(id: number) {
     return super.apiGet<ApiResult>(ApiConstants.WARD_API + '/details/' + id);
   }
 
-  public createWard(name: string, province_id: string, districts: District[]) {
-    console.log(districts)
+  public createWard(name: string, district_id: string, wards: Wards[]) {
+    console.log(wards)
 
     let data = {
       "created_by": name,
-      "province_id": province_id,
-      "data": districts
+      "district_id": district_id,
+      "data": wards
     };
 
-    return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API, data);
+    return super.apiPost<ApiResult>(ApiConstants.WARD_API, data);
   }
 
   public updateWard(ward: Wards) {
@@ -66,15 +66,15 @@ export class WardsService extends APIService {
       "updated_by": ward.created_by
     };
 
-    return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API + '/update/' + ward.id, data);
+    return super.apiPost<ApiResult>(ApiConstants.WARD_API + '/update/' + ward.id, data);
   }
 
-  public deleteWard(name: string, districtIds: number[]) {
+  public deleteWard(name: string, wardIds: number[]) {
     let data = {
       "updated_by": name,
-      "ids": districtIds
+      "ids": wardIds
     };
 
-    return super.apiPost<ApiResult>(ApiConstants.DISTRICT_API + '/delete/', data);
+    return super.apiPost<ApiResult>(ApiConstants.WARD_API + '/delete/', data);
   }
 }
