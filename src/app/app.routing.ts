@@ -61,6 +61,11 @@ export const routes: Routes = [
         loadChildren: './views/base-setting/districts/districts.module#DistrictsModule',
         canActivate: [AuthGuard]
       },
+      {
+        path: 'wards',
+        loadChildren: './views/base-setting/wards/wards.module#WardsModule',
+        canActivate: [AuthGuard]
+      },
     ]
   }
 ];

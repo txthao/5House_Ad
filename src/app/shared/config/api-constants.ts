@@ -11,4 +11,5 @@ export class ApiConstants {
 
   public static readonly PROVINCE_API = ApiConstants.ADMIN_API + '/province';
   public static readonly DISTRICT_API = ApiConstants.ADMIN_API + '/districts';
+  public static readonly WARD_API = ApiConstants.ADMIN_API + '/wards';
 }
