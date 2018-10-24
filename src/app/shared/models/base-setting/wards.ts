@@ -2,6 +2,7 @@ export class Wards {
     id: number;
     ward_name: string;
     district_id: string;
+    province_id: string;
     index: number;
     checked: boolean;
     created_by: string;

@@ -3,7 +3,6 @@ import { APIService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiResult } from '../models/api-result';
 import { ApiConstants } from '../config/api-constants';
-import { District } from '../models/base-setting/district';
 import { Wards } from '../models/base-setting/wards';
 
 
@@ -34,7 +33,7 @@ export class WardsService extends APIService {
       }
 
     if (wardName) {
-      params += params ? '&district_name=' : '?district_name=';
+      params += params ? '&ward_name=' : '?ward_name=';
       params += wardName;
     }
 

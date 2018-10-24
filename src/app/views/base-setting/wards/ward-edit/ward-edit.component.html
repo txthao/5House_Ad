@@ -1,3 +1,52 @@
-<p>
-  ward-edit works!
-</p>
+<div class="row">
+  <!--/.col-->
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <strong> Districts</strong>
+      </div>
+      <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateWard()" novalidate>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Province Name</label>
+            <div class="col-md-9">
+              <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="ward.province_id"
+                (ngModelChange)="onSelectedProvince()">
+                <option value="">All Provinces</option>
+                <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label font-weight-bold">District Name</label>
+            <div class="col-md-9">
+              <select class="form-control" id="districts" name="select-districts" [(ngModel)]="ward.district_id"
+                [ngClass]="{'is-invalid': f.submitted && id_district.invalid }" 
+                #id_district="ngModel" required>
+                <option value="" disabled>All Districts</option>
+                <option *ngFor="let item of districts" [ngValue]="item.id"> {{ item.district_name }}</option>
+              </select>
+              <div *ngIf="f.submitted && id_district.invalid" class="invalid-feedback">
+                <div *ngIf="id_district.errors.required">Please select district</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label font-weight-bold">Ward Name</label>
+            <div class="col-md-9">
+              <input type="text" name="name" [(ngModel)]="ward.ward_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
+                #name="ngModel" class="form-control" required />
+              <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                <div *ngIf="name.errors.required">Name is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

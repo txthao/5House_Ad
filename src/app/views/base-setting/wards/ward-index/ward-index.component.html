@@ -67,11 +67,11 @@
             </tbody>
           </table>
           
-          <div *ngIf="wards && wards.length > 0 && isChecked === true" class="col-lg-10">
-            <button class="btn btn-danger btn-sm ml-1 float-right" (click)="deleteAllWards()">Delete All</button>
+          <div *ngIf="wards && wards.length > 0 && isChecked === true" style="position: absolute; right: 15%;">
+            <button class="btn btn-danger btn-sm ml-1" (click)="deleteAllWards()">Delete All</button>
           </div>
 
-          <div class="pagination row" style="clear: both;">
+          <div class="pagination row">
             <div class="col-xs-12 col-12">
               <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md"
                           previousText="&lsaquo;"

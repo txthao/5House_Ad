@@ -41,6 +41,7 @@ export class WardIndexComponent implements OnInit {
   ngOnInit() {
     this.authService.session$.subscribe(data => this.session = data);
     this.getProvinces();
+    this.searchDistricts(this.selectedProvince, null);
     this.getWards();
 
     console.log(this.isChecked);
@@ -49,6 +50,11 @@ export class WardIndexComponent implements OnInit {
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.getWards();
+  }
+
+  onSearch() {
+    this.selectedAll = false;
+    this.searchWards(this.selectedProvince, this.selectedDistrict, this.selectedWard);
   }
 
   onSelectedProvince(value) {
@@ -89,6 +95,7 @@ export class WardIndexComponent implements OnInit {
       res => {
         if (res.success) {
           this.wards = res.data;
+          console.log(this.wards);
           this.totalItems = res.data.total;
           this.itemsPerPage = res.data.per_page;
           this.wards_name = this.wards.map(item => item.ward_name);
