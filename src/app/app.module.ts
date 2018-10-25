@@ -47,6 +47,7 @@ import { FormsModule } from '@angular/forms';
 import {DispatchArg} from 'rxjs/internal/observable/SubscribeOnObservable';
 import {DistrictsModule} from './views/base-setting/districts/districts.module';
 import {WardsModule} from './views/base-setting/wards/wards.module';
+import {StreetsModule} from './views/base-setting/streets/streets.module'
 
 @NgModule({
   imports: [
@@ -65,14 +66,15 @@ import {WardsModule} from './views/base-setting/wards/wards.module';
     SharedModule,
     ProvincesModule,
     DistrictsModule,
-    WardsModule
+    WardsModule,
+    StreetsModule
   ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    LoginComponent,
+    LoginComponent
 
   ],
   providers: [AuthenticateService, AuthGuardService, AlertService],

@@ -65,6 +65,11 @@ export const routes: Routes = [
         loadChildren: './views/base-setting/wards/wards.module#WardsModule',
         canActivate: [AuthGuard]
       },
+      {
+        path: 'streets',
+        loadChildren: './views/base-setting/streets/streets.module#StreetsModule',
+        canActivate: [AuthGuard]
+      },
     ]
   }
 ];
