@@ -47,7 +47,8 @@ import { FormsModule } from '@angular/forms';
 import {DispatchArg} from 'rxjs/internal/observable/SubscribeOnObservable';
 import {DistrictsModule} from './views/base-setting/districts/districts.module';
 import {WardsModule} from './views/base-setting/wards/wards.module';
-import {StreetsModule} from './views/base-setting/streets/streets.module'
+import {StreetsModule} from './views/base-setting/streets/streets.module';
+import { CategoriesModule } from './views/base-setting/categories/categories.module';
 
 @NgModule({
   imports: [
@@ -67,14 +68,15 @@ import {StreetsModule} from './views/base-setting/streets/streets.module'
     ProvincesModule,
     DistrictsModule,
     WardsModule,
-    StreetsModule
+    StreetsModule,
+    CategoriesModule
   ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    LoginComponent
+    LoginComponent,
 
   ],
   providers: [AuthenticateService, AuthGuardService, AlertService],

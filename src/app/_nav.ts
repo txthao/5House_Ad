@@ -13,27 +13,27 @@ export const navItems = [
     icon: 'icon-puzzle',
     children: [
       {
-        name: '2. Categories',
+        name: '1. Categories',
         url: '/categories',
         icon: 'icon-puzzle'
       },
       {
-        name: '3. Provinces',
+        name: '2. Provinces',
         url: '/provinces',
         icon: 'icon-puzzle'
       },
       {
-        name: '4. Districts',
+        name: '3. Districts',
         url: '/districts',
         icon: 'icon-puzzle'
       },
       {
-        name: '5. Wards',
+        name: '4. Wards',
         url: '/wards',
         icon: 'icon-puzzle'
       },
       {
-        name: '6. Streets',
+        name: '5. Streets',
         url: '/streets',
         icon: 'icon-puzzle'
       },

@@ -1,0 +1,42 @@
+<div class="row">
+  <!--/.col-->
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <strong> Category</strong>
+      </div>
+      <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && createCategory()" novalidate>
+        <div class="card-body">
+
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label font-weight-bold">Type Name</label>
+            <div class="col-md-7">
+              <select class="form-control" id="types" name="select-types" [(ngModel)]="typeId" (ngModelChange)="onSelectedType()">
+                <option value="undefined" disabled>Select Type</option>
+                <option *ngFor="let item of types" [ngValue]="item.id"> {{ item.type_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div *ngIf="showInputCategory === true" class="form-group row required">
+            <label class="col-md-3 col-form-label font-weight-bold">Category Name
+            </label>
+            <div class="col-md-7">
+              <input type="text" name="name" [(ngModel)]="category_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
+                #name="ngModel" class="form-control" required placeholder="Name ...">
+              <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                <div *ngIf="name.errors.required">Name is required</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

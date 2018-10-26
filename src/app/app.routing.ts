@@ -70,6 +70,11 @@ export const routes: Routes = [
         loadChildren: './views/base-setting/streets/streets.module#StreetsModule',
         canActivate: [AuthGuard]
       },
+      {
+        path: 'categories',
+        loadChildren: './views/base-setting/categories/categories.module#CategoriesModule',
+        canActivate: [AuthGuard]
+      },
     ]
   }
 ];

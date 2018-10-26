@@ -1,0 +1,70 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <!--/.col-->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Categories
+          <span class="btn btn-primary btn-sm float-right" [routerLink]="['create']">
+            <i class="fa fa-plus"></i> New</span>
+        </div>
+        <div class="card-body">
+         
+          <!-- <form class="row" style="margin-bottom: 20px" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSearch()">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="provinces">Types</label>
+                <select class="form-control" id="types" name="select-types" [(ngModel)]="selectedType" (ngModelChange)="onSelectedType($event)">
+                  <option value="">All Types</option>
+                  <option *ngFor="let item of types" [ngValue]="item.id"> {{ item.type_name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="typeahead-format">Districts</label>
+                <input id="typeahead-format" type="text" name="select-categories" class="form-control" [(ngModel)]="selectedCategory" [ngbTypeahead]="search"/>
+              </div>
+            </div>
+            <div class="col-lg-2" style="display: flex; align-items: center; justify-content: center;">
+              <button type="submit" class="btn btn-primary" style="margin-top: 12px">Search</button>
+            </div>
+          </form> -->
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!categories || categories.length === 0" class="warning">
+                <td colspan="11" align="center">No data available</td>
+              </tr>
+              <tr *ngFor="let category of categories">
+                <td>{{category.category_name}}</td>
+                <td>{{category.type_name}}</td>
+                <td>
+                  <span class="btn btn-success btn-sm" [routerLink]="[category.id]">Edit</span>
+                  <span class="btn btn-danger btn-sm ml-1" (click)="deleteCategory(category.id)">Delete</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pagination row">
+            <div class="col-xs-12 col-12">
+              <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo;"
+                nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="itemsPerPage"
+                (pageChanged)="pageChanged($event)"></pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
