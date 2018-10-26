@@ -21,7 +21,6 @@ export class WardEditComponent implements OnInit {
   provinces: Province[];
   districts: District[];
   provinceId: number;
-  districtId: number;
   session: Session;
 
   constructor(private wardsService: WardsService, private districtsService: DistrictsService, private provincesService: ProvincesService,

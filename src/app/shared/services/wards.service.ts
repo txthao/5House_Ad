@@ -37,8 +37,6 @@ export class WardsService extends APIService {
       params += wardName;
     }
 
-    console.log(wardName);
-    console.log(params);
     return super.apiGet<ApiResult>(ApiConstants.WARD_API + '/find' + params);
   }
 
@@ -47,7 +45,6 @@ export class WardsService extends APIService {
   }
 
   public createWard(name: string, district_id: string, wards: Wards[]) {
-    console.log(wards)
 
     let data = {
       "created_by": name,

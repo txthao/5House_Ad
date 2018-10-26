@@ -32,6 +32,11 @@ export const navItems = [
         url: '/wards',
         icon: 'icon-puzzle'
       },
+      {
+        name: '6. Streets',
+        url: '/streets',
+        icon: 'icon-puzzle'
+      },
     ]
   },
 

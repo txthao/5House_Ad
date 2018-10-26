@@ -1,3 +1,110 @@
-<p>
-  street-index works!
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <!--/.col-->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Streets
+          <span class="btn btn-success btn-sm float-right" [routerLink]="['add']">
+            <i class="fa fa-plus"></i> Add Street To State
+          </span>
+          <span class="btn btn-primary btn-sm float-right" style="margin-right: 10px;" [routerLink]="['create']">
+            <i class="fa fa-plus"></i> New
+          </span>
+        </div>
+
+        <div class="card-body">
+          <form class="row" style="margin-bottom: 20px" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSearch()">
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label for="provinces">Provinces</label>
+                <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="selectedProvince"
+                  (ngModelChange)="onSelectedProvince($event)">
+                  <option value="">All Provinces</option>
+                  <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label for="districts">Districts</label>
+                <select class="form-control" id="districts" name="select-districts" [(ngModel)]="selectedDistrict"
+                  (ngModelChange)="onSelectedDistrict($event)">
+                  <option value="">All Districts</option>
+                  <option *ngFor="let item of districts" [ngValue]="item.id"> {{ item.district_name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label for="wards">Wards</label>
+                <select class="form-control" id="wards" name="select-wards" [(ngModel)]="selectedWard" (ngModelChange)="onSelectedWard($event)">
+                  <option value="">All Wards</option>
+                  <option *ngFor="let item of wards" [ngValue]="item.id"> {{ item.ward_name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label for="typeahead-format">Street</label>
+                <input id="typeahead-format" type="text" name="select-street" class="form-control" [(ngModel)]="selectedStreet"
+                  [ngbTypeahead]="search" />
+              </div>
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2" style="display: flex; align-items: center; justify-content: center;">
+              <button type="submit" class="btn btn-primary" style="margin-top: 12px">Search</button>
+            </div>
+          </form>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="checkAll()" /></th>
+                <th>Name</th>
+                <th>Ward</th>
+                <th>District</th>
+                <th>Province</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!streets || streets.length === 0" class="warning">
+                <td colspan="11" align="center">No data</td>
+              </tr>
+              <tr *ngFor="let street of streets">
+                <td><input type="checkbox" [(ngModel)]="street.checked" (change)="updateCheck()" /></td>
+                <td>{{street.street_name}}</td>
+                <td>{{street.ward_name}}</td>
+                <td>{{street.district_name}}</td>
+                <td>{{street.province_name}}</td>
+                <td>
+                  <span class="btn btn-success btn-sm" [routerLink]="[street.id]">Edit</span>
+                  <span class="btn btn-danger btn-sm ml-1" (click)="deleteStreet(street.id)">Delete</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row" style="margin-bottom: 10px" *ngIf="streets && streets.length > 0 && isChecked === true">
+            <div class="col-lg-9 col-md-9"></div>
+            <div class="col-lg-2 col-md-2">
+              <button class="btn btn-danger btn-sm ml-1" (click)="deleteAllStreets()">Delete All</button>
+            </div>
+          </div>
+
+          <div class="pagination row">
+            <div class="col-xs-12 col-12">
+              <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+                [rotate]="false" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

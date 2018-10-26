@@ -23,7 +23,9 @@ export class WardCreateComponent implements OnInit {
   wards = [];
   session: Session;
 
-  constructor(private wardsService: WardsService, private districtsService: DistrictsService, private provincesService: ProvincesService, private router: Router, private alertService: AlertService,
+  constructor(private wardsService: WardsService, private districtsService: DistrictsService,
+    private provincesService: ProvincesService, private router: Router, 
+    private alertService: AlertService,
     private authService: AuthenticateService) { }
 
   ngOnInit() {

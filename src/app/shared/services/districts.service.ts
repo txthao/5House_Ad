@@ -32,8 +32,6 @@ export class DistrictsService extends APIService {
       params += districtName;
     }
 
-    console.log(districtName);
-    console.log(params);
     return super.apiGet<ApiResult>(ApiConstants.DISTRICT_API + '/find' + params);
   }
 
@@ -42,7 +40,6 @@ export class DistrictsService extends APIService {
   }
 
   public createDistrict(name: string, province_id: string, districts: District[]) {
-    console.log(districts)
 
     let data = {
       "created_by": name,

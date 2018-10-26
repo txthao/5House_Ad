@@ -1,3 +1,38 @@
-<p>
-  street-create works!
-</p>
+<div class="row">
+    <!--/.col-->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Streets</strong>
+        </div>
+        <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && createStreets()" novalidate>
+          <div class="card-body">
+            <div *ngFor="let street of streets; let i = index">
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label font-weight-bold">Street Name
+                </label>
+                <div class="col-md-7">
+                  <input type="text" name="name_{{i}}" [(ngModel)]="street.street_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
+                    #name="ngModel" class="form-control" required placeholder="Name ...">
+                  <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                    <div *ngIf="name.errors.required">Name is required</div>
+                  </div>
+                </div>
+                <div class="col-md-1 mt-1">
+                    <div *ngIf="streets.length!=1" class="btn btn-sm btn-danger btn-block" (click)="streets.length>1&&removeItem(i)"><i class="fa fa-minus"></i></div>
+                </div>
+                <div class="col-md-1 mt-1">
+                  <div *ngIf="streets.length==(i+1)" class="btn btn-sm btn-success btn-block" (click)="newItem()"> <i class="fa fa-plus"></i></div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-sm btn-primary">
+              <i class="fa fa-dot-circle-o"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
