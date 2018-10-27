@@ -56,9 +56,11 @@
 
           <div class="pagination row">
             <div class="col-xs-12 col-12">
-              <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo;"
-                nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="itemsPerPage"
-                (pageChanged)="pageChanged($event)"></pagination>
+              <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md"
+                          previousText="&lsaquo;"
+                          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+                          [rotate]="false" [itemsPerPage]="itemsPerPage"
+                          (pageChanged)="pageChanged($event)"></pagination>
             </div>
           </div>
         </div>

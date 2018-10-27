@@ -23,6 +23,7 @@ export class CategoryEditComponent implements OnInit {
   ngOnInit() {
     this.authService.session$.subscribe(data => this.session = data);
     this.getTypes();
+    this.getCategory()
   }
 
   getTypes() {

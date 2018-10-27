@@ -35,6 +35,11 @@ export class CategoryIndexComponent implements OnInit {
     // this.searchCategories();
   }
 
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.getCategories();
+  }
+
   // getTypes() {
   //   this.categoriesService.getTypes().subscribe(
   //     res => {
@@ -48,7 +53,7 @@ export class CategoryIndexComponent implements OnInit {
   // }
 
   getCategories() {
-      this.categoriesService.getCategories().subscribe(
+      this.categoriesService.getCategories(this.currentPage).subscribe(
       res => {
         if (res.success) {
           this.categories = res.data.data;
