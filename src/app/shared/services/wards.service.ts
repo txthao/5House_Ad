@@ -29,7 +29,7 @@ export class WardsService extends APIService {
 
     if (districtId) {
         params += params ? '&district_id=' : '?district_id=';
-        params = "?district_id=" + districtId;
+        params += districtId;
       }
 
     if (wardName) {

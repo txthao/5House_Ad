@@ -80,8 +80,8 @@
                 <td>{{street.district_name}}</td>
                 <td>{{street.province_name}}</td>
                 <td>
-                  <span class="btn btn-success btn-sm" [routerLink]="[street.id]">Edit</span>
-                  <span class="btn btn-danger btn-sm ml-1" (click)="deleteStreet(street.id)">Delete</span>
+                  <span class="btn btn-success btn-sm" (click)="goDetailStreet(street)">Edit</span>
+                  <span class="btn btn-danger btn-sm ml-1" (click)="deleteStreet(street)">Delete</span>
                 </td>
               </tr>
             </tbody>

@@ -20,11 +20,12 @@ export class StreetEditComponent implements OnInit {
 
   street: Street = new Street();
   streetId = this.activedRoute.snapshot.params['id'];
+  provinceId = this.activedRoute.snapshot.queryParams['province_id'];
+  districtId = this.activedRoute.snapshot.queryParams['district_id'];
+  wardId = this.activedRoute.snapshot.queryParams['ward_id'];
   provinces: Province[];
   districts: District[];
   wards: Wards[];
-  provinceId: number;
-  districtId: number;
   session: Session;
 
   constructor(private streetsService: StreetsService, private wardsService: WardsService, private districtsService: DistrictsService, private provincesService: ProvincesService,
@@ -33,23 +34,26 @@ export class StreetEditComponent implements OnInit {
 
   ngOnInit() {
     this.authService.session$.subscribe(data => this.session = data);
-
     this.getStreet();
 
-    // this.getProvinces();
-    // this.searchDistricts();
-    // this.searchWards();
   }
 
   onSelectedProvince() {
-    this.searchDistricts(this.street.province_id);
-    this.street.district_id = "";
-    this.street.ward_id = "";
+    this.street.district_id = "undefined";
+    this.street.ward_id = "undefined";
+    this.districts = [];
+    this.wards = [];
+    if (this.street.province_id !== "undefined") {
+      this.searchDistricts(this.street.province_id);
+    }
   }
 
-  onSelectedDistrict(value) {
-    this.searchWards(null, this.street.district_id);
-    this.street.ward_id = "";
+  onSelectedDistrict() {
+    this.street.ward_id = "undefined";
+    this.wards = [];
+    if (this.street.district_id !== "undefined") {
+      this.searchWards(null, this.street.district_id);
+    }
   }
 
   getProvinces() {
@@ -89,11 +93,12 @@ export class StreetEditComponent implements OnInit {
   }
 
   getStreet() {
-    this.streetsService.getStreet(this.streetId).subscribe(
+    this.streetsService.getStreet(this.streetId, this.provinceId, this.districtId, this.wardId).subscribe(
       res => {
         if (res.success) {
           this.street = res.data;
           console.log(this.street);
+          console.log(this.street.province_id);
           this.getProvinces();
           this.searchDistricts(this.street.province_id);
           this.searchWards(null, this.street.district_id);
@@ -107,6 +112,21 @@ export class StreetEditComponent implements OnInit {
 
   updateStreet() {
     this.street.updated_by = this.session.name;
+
+    console.log(this.street.province_id)
+    if (this.street.province_id !== 'undefined') {
+      this.streetsService.updateStreetWard(this.provinceId, this.districtId, this.wardId, this.street).subscribe(
+        res => {
+          if (res.success) {
+            console.log(res.data);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
     this.streetsService.updateStreet(this.street).subscribe(
       res => {
         if (res.success) {
@@ -120,5 +140,5 @@ export class StreetEditComponent implements OnInit {
       }
     );
   }
-
+  
 }

@@ -11,9 +11,11 @@ import { AlertService } from '../../../../shared/services/alert.service';
 import { AuthenticateService } from '../../../../shared/services/authenticate.service';
 import { Street } from '../../../../shared/models/base-setting/street';
 import { Session } from '../../../../shared/models/auth/session';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { Utils } from '../../../../shared/config/utils';
+
+interface AngSelectEvent {
+  name: string;
+  value: any;
+}
 
 @Component({
   selector: 'app-street-add',
@@ -21,10 +23,12 @@ import { Utils } from '../../../../shared/config/utils';
 })
 export class StreetAddComponent implements OnInit {
 
+  events: AngSelectEvent[] = [];
+
   provinces: Province[];
   districts: District[];
   wards: Wards[];
-  streets = [];
+  streets: any;
   streetsAvailable = [];
   selectedProvince: any = "";
   selectedDistrict: any = "";
@@ -42,23 +46,9 @@ export class StreetAddComponent implements OnInit {
     this.getAllStreets();
   }
 
-  newItem() {
-    let street = new Street();
-    street.index = this.streets.length;
-    street.created_by = this.session.name;
-    this.streets.push(street);
-  }
-
-  removeItem(index) {
-    this.streets.splice(index, 1);
-  }
-
   onSelectedProvince() {
     this.selectedDistrict = "";
     this.searchDistricts(this.selectedProvince);
-    if (this.streets.length === 0) {
-      this.newItem();
-    }
   }
 
   onSelectedDistrict() {
@@ -110,7 +100,7 @@ export class StreetAddComponent implements OnInit {
     this.streetsService.getStreets().subscribe(
       res => {
         if (res.success) {
-          this.streetsAvailable = res.data.data.map(item => item.street_name);
+          this.streetsAvailable = res.data.data;
         }
       },
       err => {
@@ -132,12 +122,21 @@ export class StreetAddComponent implements OnInit {
         });
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term === '' ? []
-        : this.streetsAvailable.filter(v => Utils.formatLetters(v).indexOf(Utils.formatLetters(term)) > -1).slice(0, 10))
-    )
+  onAdd($event) {
+    this.events.push({ name: '(add)', value: $event });
+  }
+
+  onRemove($event) {
+    this.events.push({ name: '(remove)', value: $event });
+  }
+
+  onSearch($event) {
+    this.events.push({ name: '(search)', value: $event })
+  }
+
+  onChange($event) {
+    this.events.push({ name: '(change)', value: $event });
+    console.log(this.streets);
+  }
 
 }

@@ -14,6 +14,7 @@ import { StreetsService } from '../../../../shared/services/streets.service';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Utils } from '../../../../shared/config/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-street-index',
@@ -40,8 +41,8 @@ export class StreetIndexComponent implements OnInit {
 
   constructor(private streetsService: StreetsService, private wardsService: WardsService,
     private districtsService: DistrictsService, private provincesService: ProvincesService,
-    private alertService: AlertService, private authService: AuthenticateService) {
-  }
+    private alertService: AlertService, private authService: AuthenticateService,
+    private router: Router) { }
 
   ngOnInit() {
     this.authService.session$.subscribe(data => this.session = data);
@@ -140,7 +141,7 @@ export class StreetIndexComponent implements OnInit {
       res => {
         if (res.success) {
           this.streets = res.data;
-          // console.log(this.streets);
+          console.log(this.streets);
           this.totalItems = res.data.total;
           this.itemsPerPage = res.data.per_page;
           this.streets_name = this.streets.map(item => item.street_name);
@@ -152,42 +153,80 @@ export class StreetIndexComponent implements OnInit {
 
   }
 
-  deleteStreet(id: number) {
-    let ids = [id];
+  deleteStreet(street: Street) {
+    let ids = [street.id];
+    let streets = [street]
 
-    this.streetsService.deleteStreet(this.session.name, ids).subscribe(
-      res => {
-        if (res.success) {
-          this.alertService.success('Successfully Deleted!!!');
-          this.searchStreets();
-        }
-      },
-      err => {
-        console.log(err);
-      });
+    if (street.province_id) {
+      this.streetsService.deleteStreetWard(streets).subscribe(
+        res => {
+          if (res.success) {
+            this.alertService.success('Successfully Deleted The Street From State!!!');
+            this.searchStreets();
+          }
+        },
+        err => {
+          console.log(err);
+        });
+
+    } else {
+
+      this.streetsService.deleteStreet(this.session.name, ids).subscribe(
+        res => {
+          if (res.success) {
+            this.alertService.success('Successfully Deleted The Street!!!');
+            this.searchStreets();
+          }
+        },
+        err => {
+          console.log(err);
+        });
+    }
   }
 
   deleteAllStreets() {
     let ids = [];
+    let streets = [];
 
     this.streets.forEach(i => {
       if (i.checked) {
-        ids.push(i.id);
+        if (i.province_id) {
+          streets.push(i);
+        } else {
+          ids.push(i.id);
+        }
       }
     });
 
     console.log(ids);
+    console.log(streets);
 
-    this.streetsService.deleteStreet(this.session.name, ids).subscribe(
-      res => {
-        if (res.success) {
-          this.alertService.success('Successfully Deleted!!!');
-          this.searchStreets();
-        }
-      },
-      err => {
-        console.log(err);
-      });
+    if (ids.length > 0) {
+      this.streetsService.deleteStreet(this.session.name, ids).subscribe(
+        res => {
+          if (res.success) {
+            this.alertService.success('Successfully Deleted The Street!!!');
+            this.searchStreets();
+          }
+        },
+        err => {
+          console.log(err);
+        });
+    }
+    
+    if (streets.length > 0) {
+      this.streetsService.deleteStreetWard(streets).subscribe(
+        res => {
+          if (res.success) {
+            this.alertService.success('Successfully Deleted The Street From State!!!');
+            this.searchStreets();
+          }
+        },
+        err => {
+          console.log(err);
+        });
+    }
+
   }
 
   checkAll() {
@@ -217,6 +256,12 @@ export class StreetIndexComponent implements OnInit {
 
     console.log(this.isChecked);
   }
+
+  goDetailStreet(street) {
+    console.log(street)
+    this.router.navigate(['/streets/' + street.id], { queryParams: { province_id: street.province_id, district_id: street.district_id, ward_id: street.ward_id } });
+  }
+
 
   search = (text$: Observable<string>) =>
     text$.pipe(
