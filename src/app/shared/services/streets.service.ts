@@ -17,13 +17,18 @@ export class StreetsService extends APIService {
         return super.apiGet<ApiResult>(ApiConstants.ADMIN_API + '/streets');
     }
 
-    public searchStreets(provinceId: string = null, districtId: string = null,
+    public searchStreets(page: number = null, provinceId: string = null, districtId: string = null,
         wardId: string = null, streetName: string = null) {
 
         let params = '';
 
+        if (page) {
+            params += `?page=${page}`;
+        }
+
         if (provinceId) {
-            params = "?province_id=" + provinceId;
+            params += params ? '&province_id=' : '"?province_id="';
+            params += provinceId;
         }
 
         if (districtId) {
@@ -69,13 +74,13 @@ export class StreetsService extends APIService {
         let data = {
             "created_by": name,
             "data": streets
-          };
+        };
 
         return super.apiPost<ApiResult>(ApiConstants.STREET_API, data);
     }
 
     public updateStreetWard(provinceId: string, districtId: string, wardId: string, street: Street) {
-    
+
         wardId = wardId ? wardId : '';
         districtId = districtId ? districtId : '';
         street.district_id = street.district_id ? street.district_id : '';
@@ -115,7 +120,7 @@ export class StreetsService extends APIService {
             "ward_id": wardId,
             "streets": streets
         }
-        
+
         return super.apiPost<ApiResult>('/api/admin/street_wards', data);
     }
 }

@@ -137,10 +137,10 @@ export class StreetIndexComponent implements OnInit {
 
     this.isChecked = false;
 
-    this.streetsService.searchStreets(provinceId, districtId, wardId, streetName).subscribe(
+    this.streetsService.searchStreets(this.currentPage, provinceId, districtId, wardId, streetName).subscribe(
       res => {
         if (res.success) {
-          this.streets = res.data;
+          this.streets = res.data.data;
           this.totalItems = res.data.total;
           this.itemsPerPage = res.data.per_page;
           this.streets_name = this.streets.map(item => item.street_name);
