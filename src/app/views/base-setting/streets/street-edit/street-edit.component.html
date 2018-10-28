@@ -38,15 +38,14 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row required">
             <label class="col-md-3 col-form-label font-weight-bold">Street Name</label>
             <div class="col-md-9">
-              <input type="text" name="name" [(ngModel)]="street.street_name" class="form-control" disabled>
-              <span>
-                <p class="text-muted">Nếu muốn sửa tên đường, hãy xóa đường này khỏi tỉnh/thành, quận/huyện, phường/xã sau đó tạo lại
-                  đường mới.
-                </p>
-              </span>
+              <input type="text" name="name" [(ngModel)]="street.street_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
+                #name="ngModel" class="form-control" required [ngbTypeahead]="search"/>
+              <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                <div *ngIf="name.errors.required">Name is required</div>
+              </div>
             </div>
           </div>
         </div>

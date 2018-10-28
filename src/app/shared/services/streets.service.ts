@@ -96,6 +96,8 @@ export class StreetsService extends APIService {
                 "ward_id": street.ward_id,
                 "district_id": street.district_id,
                 "province_id": street.province_id,
+                "street_name": street.street_name,
+                "created_by": street.created_by,
                 "updated_by": street.updated_by
             }
         };

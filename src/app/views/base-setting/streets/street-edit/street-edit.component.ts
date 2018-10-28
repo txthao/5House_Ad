@@ -11,6 +11,9 @@ import { Province } from '../../../../shared/models/base-setting/province';
 import { District } from '../../../../shared/models/base-setting/district';
 import { ProvincesService } from '../../../../shared/services/provinces.service';
 import { StreetsService } from '../../../../shared/services/streets.service';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Utils } from '../../../../shared/config/utils';
 
 @Component({
   selector: 'app-street-edit',
@@ -27,6 +30,8 @@ export class StreetEditComponent implements OnInit {
   districts: District[];
   wards: Wards[];
   session: Session;
+  streets_name: any;
+  streetsAvailable = [];
 
   constructor(private streetsService: StreetsService, private wardsService: WardsService, private districtsService: DistrictsService, private provincesService: ProvincesService,
     private activedRoute: ActivatedRoute, private router: Router,
@@ -35,6 +40,7 @@ export class StreetEditComponent implements OnInit {
   ngOnInit() {
     this.authService.session$.subscribe(data => this.session = data);
     this.getStreet();
+    this.getAllStreets();
 
   }
 
@@ -97,8 +103,6 @@ export class StreetEditComponent implements OnInit {
       res => {
         if (res.success) {
           this.street = res.data;
-          console.log(this.street);
-          console.log(this.street.ward_id);
           this.getProvinces();
           this.searchDistricts(this.street.province_id);
           this.searchWards(null, this.street.district_id);
@@ -112,8 +116,8 @@ export class StreetEditComponent implements OnInit {
 
   updateStreet() {
     this.street.updated_by = this.session.name;
-
-    // console.log(this.street.province_id)
+    this.street.created_by = this.session.name;
+    
     this.streetsService.updateStreetWard(this.provinceId, this.districtId, this.wardId, this.street).subscribe(
       res => {
         if (res.success) {
@@ -127,5 +131,26 @@ export class StreetEditComponent implements OnInit {
       }
     );
   }
+
+  getAllStreets() {
+    this.streetsService.getStreets().subscribe(
+      res => {
+        if (res.success) {
+          this.streetsAvailable = res.data.data;
+          this.streets_name = this.streetsAvailable.map(i => i.street_name)
+        }
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term === '' ? []
+        : this.streets_name.filter(v => Utils.formatLetters(v).indexOf(Utils.formatLetters(term)) > -1).slice(0, 10))
+    )
 
 }
