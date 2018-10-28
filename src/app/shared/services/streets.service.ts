@@ -74,14 +74,6 @@ export class StreetsService extends APIService {
         return super.apiPost<ApiResult>(ApiConstants.STREET_API, data);
     }
 
-    // public updateStreet(street: Street) {
-    //     let data = {
-    //         "street_name": street.street_name,
-    //         "updated_by": street.updated_by
-    //     };
-    //     return super.apiPost<ApiResult>(ApiConstants.STREET_API + '/update/' + street.id, data);
-    // }
-
     public updateStreetWard(provinceId: string, districtId: string, wardId: string, street: Street) {
     
         wardId = wardId ? wardId : '';
@@ -105,15 +97,6 @@ export class StreetsService extends APIService {
 
         return super.apiPost<ApiResult>('/api/admin/street_wards' + '/update/' + street.id, data);
     }
-
-    // public deleteStreet(name: string, streetIds: string[]) {
-    //     let data = {
-    //         "updated_by": name,
-    //         "ids": streetIds
-    //     };
-
-    //     return super.apiPost<ApiResult>(ApiConstants.STREET_API + '/delete/', data);
-    // }
 
     deleteStreetWard(streetWards: Street[]) {
 

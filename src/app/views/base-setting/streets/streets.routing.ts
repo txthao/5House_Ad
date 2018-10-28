@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { StreetEditComponent } from './street-edit/street-edit.component';
-import { StreetCreateComponent } from './street-create/street-create.component';
 import { StreetIndexComponent } from './street-index/street-index.component';
 import { StreetsComponent } from './streets.component';
 import { StreetAddComponent } from './street-add/street-add.component';
@@ -15,11 +14,6 @@ const routes: Routes = [{
             path: '',
             component: StreetIndexComponent,
             data: { title: '' },
-        },
-        {
-            path: 'create',
-            component: StreetCreateComponent,
-            data: { title: 'Add Streets' }
         },
         {
             path: 'add',

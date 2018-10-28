@@ -8,7 +8,6 @@ import { WardsService } from '../../../shared/services/wards.service';
 import { DistrictsService } from '../../../shared/services/districts.service';
 import { ProvincesService } from '../../../shared/services/provinces.service';
 import { StreetAddComponent } from './street-add/street-add.component';
-import { StreetCreateComponent } from './street-create/street-create.component';
 import { StreetEditComponent } from './street-edit/street-edit.component';
 import { StreetIndexComponent } from './street-index/street-index.component';
 import { StreetsComponent } from './streets.component';
@@ -26,6 +25,6 @@ import { StreetsRoutingModule } from './streets.routing';
     NgbModule,
   ],
   providers: [StreetsService, WardsService, DistrictsService, ProvincesService],
-  declarations: [StreetsComponent, StreetIndexComponent, StreetEditComponent, StreetCreateComponent, StreetAddComponent]
+  declarations: [StreetsComponent, StreetIndexComponent, StreetEditComponent, StreetAddComponent]
 })
 export class StreetsModule { }
