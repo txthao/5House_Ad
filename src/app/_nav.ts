@@ -15,27 +15,27 @@ export const navItems = [
       {
         name: '1. Categories',
         url: '/categories',
-        icon: 'icon-puzzle'
+        icon: 'icon-layers'
       },
       {
         name: '2. Provinces',
         url: '/provinces',
-        icon: 'icon-puzzle'
+        icon: 'icon-menu'
       },
       {
         name: '3. Districts',
         url: '/districts',
-        icon: 'icon-puzzle'
+        icon: 'icon-feed'
       },
       {
         name: '4. Wards',
         url: '/wards',
-        icon: 'icon-puzzle'
+        icon: 'icon-grid'
       },
       {
         name: '5. Streets',
         url: '/streets',
-        icon: 'icon-puzzle'
+        icon: 'icon-graph'
       },
     ]
   },
