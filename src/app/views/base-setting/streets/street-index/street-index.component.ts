@@ -146,11 +146,16 @@ export class StreetIndexComponent implements OnInit {
           this.itemsPerPage = res.data.per_page;
           this.streets_name = this.streets.map(item => item.street_name);
 
-          // for(var i = 0; i<this.streets.length; i++){
-          //   for(var j = i+1; j<i;j++) {
-
-          //   }
-          // }
+          //Remove the duplicate item in array
+          for (var i = 0; i < this.streets_name.length - 1; i++) {
+            for (var j = i + 1; j < this.streets_name.length; j++) {
+              if (this.streets_name[i] === this.streets_name[j]) {
+                this.streets_name[j] = this.streets_name[j + 1]
+                this.streets_name.length--;
+                i--;
+              }
+            }
+          }
         }
       },
       err => {
