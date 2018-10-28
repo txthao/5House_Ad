@@ -11,11 +11,9 @@ import { AlertService } from '../../../../shared/services/alert.service';
 import { AuthenticateService } from '../../../../shared/services/authenticate.service';
 import { Street } from '../../../../shared/models/base-setting/street';
 import { Session } from '../../../../shared/models/auth/session';
-
-interface AngSelectEvent {
-  name: string;
-  value: any;
-}
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, count } from 'rxjs/operators';
+import { Utils } from '../../../../shared/config/utils';
 
 @Component({
   selector: 'app-street-add',
@@ -23,17 +21,16 @@ interface AngSelectEvent {
 })
 export class StreetAddComponent implements OnInit {
 
-  events: AngSelectEvent[] = [];
-
   provinces: Province[];
   districts: District[];
   wards: Wards[];
-  streets: any;
+  streets = [];
   streetsAvailable = [];
   selectedProvince: any = "";
   selectedDistrict: any = "";
   selectedWard: any = "";
   session: Session;
+  streets_name: any;
 
   constructor(private streetsService: StreetsService, private wardsService: WardsService,
     private districtsService: DistrictsService, private provincesService: ProvincesService,
@@ -46,9 +43,23 @@ export class StreetAddComponent implements OnInit {
     this.getAllStreets();
   }
 
+  newItem() {
+    let street = new Street();
+    street.index = this.streets.length;
+    street.created_by = this.session.name;
+    this.streets.push(street);
+  }
+
+  removeItem(index) {
+    this.streets.splice(index, 1);
+  }
+
   onSelectedProvince() {
     this.selectedDistrict = "";
     this.searchDistricts(this.selectedProvince);
+    if (this.streets.length === 0) {
+      this.newItem();
+    }
   }
 
   onSelectedDistrict() {
@@ -101,6 +112,7 @@ export class StreetAddComponent implements OnInit {
       res => {
         if (res.success) {
           this.streetsAvailable = res.data.data;
+          this.streets_name = this.streetsAvailable.map(i => i.streets_name)
         }
       },
       err => {
@@ -109,8 +121,30 @@ export class StreetAddComponent implements OnInit {
   }
 
   addStreets() {
+    let newStreets = [];
+    
+    this.streets.forEach(street => {
+
+      let newStreet: Street = new Street();
+
+      this.streetsAvailable.forEach(available => {
+
+        if (street.street_name === available.street_name) {
+          newStreet.id = available.id;
+          newStreet.street_name = street.street_name;
+          newStreets.push(newStreet);
+        } 
+      });
+
+      if (!newStreet.id) {
+        newStreet.id = '';
+        newStreet.street_name = street.street_name;
+        newStreets.push(newStreet);
+      }
+    });
+
     this.streetsService.addStreetToState(this.session.name, this.selectedProvince,
-      this.selectedDistrict, this.selectedWard, this.streets).subscribe(
+      this.selectedDistrict, this.selectedWard, newStreets).subscribe(
         res => {
           if (res.success) {
             this.alertService.success('Successfully Added', true, true);
@@ -122,21 +156,12 @@ export class StreetAddComponent implements OnInit {
         });
   }
 
-  onAdd($event) {
-    this.events.push({ name: '(add)', value: $event });
-  }
-
-  onRemove($event) {
-    this.events.push({ name: '(remove)', value: $event });
-  }
-
-  onSearch($event) {
-    this.events.push({ name: '(search)', value: $event })
-  }
-
-  onChange($event) {
-    this.events.push({ name: '(change)', value: $event });
-    console.log(this.streets);
-  }
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term === '' ? []
+        : this.streets_name.filter(v => Utils.formatLetters(v).indexOf(Utils.formatLetters(term)) > -1).slice(0, 10))
+    )
 
 }

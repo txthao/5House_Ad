@@ -74,22 +74,20 @@ export class StreetsService extends APIService {
         return super.apiPost<ApiResult>(ApiConstants.STREET_API, data);
     }
 
-    public updateStreet(street: Street) {
-        let data = {
-            "street_name": street.street_name,
-            "updated_by": street.updated_by
-        };
-        return super.apiPost<ApiResult>(ApiConstants.STREET_API + '/update/' + street.id, data);
-    }
+    // public updateStreet(street: Street) {
+    //     let data = {
+    //         "street_name": street.street_name,
+    //         "updated_by": street.updated_by
+    //     };
+    //     return super.apiPost<ApiResult>(ApiConstants.STREET_API + '/update/' + street.id, data);
+    // }
 
     public updateStreetWard(provinceId: string, districtId: string, wardId: string, street: Street) {
     
         wardId = wardId ? wardId : '';
         districtId = districtId ? districtId : '';
-        street.district_id = street.district_id === 'undefined' ? '' : street.district_id;
-        street.ward_id = street.ward_id === 'undefined' ? '' : street.ward_id;
-
-        console.log(street.updated_by)
+        street.district_id = street.district_id ? street.district_id : '';
+        street.ward_id = street.ward_id ? street.ward_id : '';
 
         let data = {
             "old": {
@@ -108,14 +106,14 @@ export class StreetsService extends APIService {
         return super.apiPost<ApiResult>('/api/admin/street_wards' + '/update/' + street.id, data);
     }
 
-    public deleteStreet(name: string, streetIds: string[]) {
-        let data = {
-            "updated_by": name,
-            "ids": streetIds
-        };
+    // public deleteStreet(name: string, streetIds: string[]) {
+    //     let data = {
+    //         "updated_by": name,
+    //         "ids": streetIds
+    //     };
 
-        return super.apiPost<ApiResult>(ApiConstants.STREET_API + '/delete/', data);
-    }
+    //     return super.apiPost<ApiResult>(ApiConstants.STREET_API + '/delete/', data);
+    // }
 
     deleteStreetWard(streetWards: Street[]) {
 
@@ -128,13 +126,13 @@ export class StreetsService extends APIService {
 
     public addStreetToState(name: string = null, provincdId: string = null, DistrictId: string = null, wardId: string = null, streets: Street[]) {
         let data = {
-            "create_by": name,
+            "created_by": name,
             "province_id": provincdId,
             "district_id": DistrictId,
             "ward_id": wardId,
-            "ids": streets
+            "streets": streets
         }
-
+        
         return super.apiPost<ApiResult>('/api/admin/street_wards', data);
     }
 }

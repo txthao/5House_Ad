@@ -4,7 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../../../shared/shared.module';
 import {PaginationModule} from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { WardsService } from '../../../shared/services/wards.service';
 import { DistrictsService } from '../../../shared/services/districts.service';
 import { ProvincesService } from '../../../shared/services/provinces.service';
@@ -25,7 +24,6 @@ import { StreetsRoutingModule } from './streets.routing';
     StreetsRoutingModule,
     PaginationModule,
     NgbModule,
-    NgSelectModule,
   ],
   providers: [StreetsService, WardsService, DistrictsService, ProvincesService],
   declarations: [StreetsComponent, StreetIndexComponent, StreetEditComponent, StreetCreateComponent, StreetAddComponent]

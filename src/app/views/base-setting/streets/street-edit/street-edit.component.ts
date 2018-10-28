@@ -39,19 +39,19 @@ export class StreetEditComponent implements OnInit {
   }
 
   onSelectedProvince() {
-    this.street.district_id = "undefined";
-    this.street.ward_id = "undefined";
+    this.street.district_id = null;
+    this.street.ward_id = null;
     this.districts = [];
     this.wards = [];
-    if (this.street.province_id !== "undefined") {
+    if (this.street.province_id) {
       this.searchDistricts(this.street.province_id);
     }
   }
 
   onSelectedDistrict() {
-    this.street.ward_id = "undefined";
+    this.street.ward_id = null;
     this.wards = [];
-    if (this.street.district_id !== "undefined") {
+    if (this.street.district_id) {
       this.searchWards(null, this.street.district_id);
     }
   }
@@ -98,7 +98,7 @@ export class StreetEditComponent implements OnInit {
         if (res.success) {
           this.street = res.data;
           console.log(this.street);
-          console.log(this.street.province_id);
+          console.log(this.street.ward_id);
           this.getProvinces();
           this.searchDistricts(this.street.province_id);
           this.searchWards(null, this.street.district_id);
@@ -113,21 +113,8 @@ export class StreetEditComponent implements OnInit {
   updateStreet() {
     this.street.updated_by = this.session.name;
 
-    console.log(this.street.province_id)
-    if (this.street.province_id !== 'undefined') {
-      this.streetsService.updateStreetWard(this.provinceId, this.districtId, this.wardId, this.street).subscribe(
-        res => {
-          if (res.success) {
-            console.log(res.data);
-          }
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    }
-
-    this.streetsService.updateStreet(this.street).subscribe(
+    // console.log(this.street.province_id)
+    this.streetsService.updateStreetWard(this.provinceId, this.districtId, this.wardId, this.street).subscribe(
       res => {
         if (res.success) {
           console.log(res.data);
@@ -140,5 +127,5 @@ export class StreetEditComponent implements OnInit {
       }
     );
   }
-  
+
 }

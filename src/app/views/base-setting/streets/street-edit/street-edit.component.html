@@ -1,59 +1,60 @@
 <div class="row">
-    <!--/.col-->
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          <strong> Districts</strong>
-        </div>
-        <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateStreet()" novalidate>
-          <div class="card-body">
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label font-weight-bold">Province Name</label>
-              <div class="col-md-9">
-                <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="street.province_id"
-                  (ngModelChange)="onSelectedProvince()">
-                  <option value="undefined" disabled>All Provinces</option>
-                  <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label font-weight-bold">District Name</label>
-              <div class="col-md-9">
-                <select class="form-control" id="districts" name="select-districts" [(ngModel)]="street.district_id" 
-                (ngModelChange)="onSelectedDistrict()" >
-                  <option value="undefined">All Districts</option>
-                  <option *ngFor="let item of districts" [ngValue]="item.id"> {{ item.district_name }}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label font-weight-bold">Ward Name</label>
-                <div class="col-md-9">
-                  <select class="form-control" id="wards" name="select-wards" [(ngModel)]="street.ward_id">
-                    <option value="undefined">All Wards</option>
-                    <option *ngFor="let item of wards" [ngValue]="item.id"> {{ item.ward_name }}</option>
-                  </select>
-                </div>
-              </div>
-
-            <div class="form-group row required">
-              <label class="col-md-3 col-form-label font-weight-bold">Street Name</label>
-              <div class="col-md-9">
-                <input type="text" name="name" [(ngModel)]="street.street_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
-                  #name="ngModel" class="form-control" required />
-                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-                  <div *ngIf="name.errors.required">Name is required</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <button class="btn btn-sm btn-primary">
-              <i class="fa fa-dot-circle-o"></i> Submit</button>
-          </div>
-        </form>
+  <!--/.col-->
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <strong> Districts</strong>
       </div>
+      <form class="form-horizontal" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateStreet()" novalidate>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Province Name</label>
+            <div class="col-md-9">
+              <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="street.province_id"
+                (ngModelChange)="onSelectedProvince()">
+                <option value="null" disabled>Select Province</option>
+                <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">District Name</label>
+            <div class="col-md-9">
+              <select class="form-control" id="districts" name="select-districts" [(ngModel)]="street.district_id"
+                (ngModelChange)="onSelectedDistrict()">
+                <option value="null">Select District</option>
+                <option *ngFor="let item of districts" [ngValue]="item.id"> {{ item.district_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Ward Name</label>
+            <div class="col-md-9">
+              <select class="form-control" id="wards" name="select-wards" [(ngModel)]="street.ward_id">
+                <option value="null">Select Ward</option>
+                <option *ngFor="let item of wards" [ngValue]="item.id"> {{ item.ward_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Street Name</label>
+            <div class="col-md-9">
+              <input type="text" name="name" [(ngModel)]="street.street_name" class="form-control" disabled>
+              <span>
+                <p class="text-muted">Nếu muốn sửa tên đường, hãy xóa đường này khỏi tỉnh/thành, quận/huyện, phường/xã sau đó tạo lại
+                  đường mới.
+                </p>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Submit</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>

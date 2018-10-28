@@ -141,7 +141,6 @@ export class StreetIndexComponent implements OnInit {
       res => {
         if (res.success) {
           this.streets = res.data;
-          console.log(this.streets);
           this.totalItems = res.data.total;
           this.itemsPerPage = res.data.per_page;
           this.streets_name = this.streets.map(item => item.street_name);
@@ -154,66 +153,31 @@ export class StreetIndexComponent implements OnInit {
   }
 
   deleteStreet(street: Street) {
-    let ids = [street.id];
     let streets = [street]
 
-    if (street.province_id) {
-      this.streetsService.deleteStreetWard(streets).subscribe(
-        res => {
-          if (res.success) {
-            this.alertService.success('Successfully Deleted The Street From State!!!');
-            this.searchStreets();
-          }
-        },
-        err => {
-          console.log(err);
-        });
-
-    } else {
-
-      this.streetsService.deleteStreet(this.session.name, ids).subscribe(
-        res => {
-          if (res.success) {
-            this.alertService.success('Successfully Deleted The Street!!!');
-            this.searchStreets();
-          }
-        },
-        err => {
-          console.log(err);
-        });
-    }
+    this.streetsService.deleteStreetWard(streets).subscribe(
+      res => {
+        if (res.success) {
+          this.alertService.success('Successfully Deleted The Street From State!!!');
+          this.searchStreets();
+        }
+      },
+      err => {
+        console.log(err);
+      });
   }
 
   deleteAllStreets() {
-    let ids = [];
     let streets = [];
 
     this.streets.forEach(i => {
       if (i.checked) {
-        if (i.province_id) {
-          streets.push(i);
-        } else {
-          ids.push(i.id);
-        }
+        streets.push(i);
       }
     });
 
-    console.log(ids);
     console.log(streets);
 
-    if (ids.length > 0) {
-      this.streetsService.deleteStreet(this.session.name, ids).subscribe(
-        res => {
-          if (res.success) {
-            this.alertService.success('Successfully Deleted The Street!!!');
-            this.searchStreets();
-          }
-        },
-        err => {
-          console.log(err);
-        });
-    }
-    
     if (streets.length > 0) {
       this.streetsService.deleteStreetWard(streets).subscribe(
         res => {
