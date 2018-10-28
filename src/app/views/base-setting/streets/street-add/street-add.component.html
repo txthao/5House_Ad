@@ -40,11 +40,11 @@
 
           <div *ngFor="let street of streets; let i = index">
             <div class="form-group row required">
-              <label class="col-md-3 col-form-label font-weight-bold">District Name
+              <label class="col-md-3 col-form-label font-weight-bold">Street Name
               </label>
               <div class="col-md-7">
                 <input type="text" name="name_{{i}}" [(ngModel)]="street.street_name" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
-                  #name="ngModel" class="form-control" required placeholder="Name ...">
+                  #name="ngModel" class="form-control" required placeholder="Name ..." [ngbTypeahead]="search">
                 <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
                   <div *ngIf="name.errors.required">Name is required</div>
                 </div>

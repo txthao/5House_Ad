@@ -112,7 +112,7 @@ export class StreetAddComponent implements OnInit {
       res => {
         if (res.success) {
           this.streetsAvailable = res.data.data;
-          this.streets_name = this.streetsAvailable.map(i => i.streets_name)
+          this.streets_name = this.streetsAvailable.map(i => i.street_name)
         }
       },
       err => {
