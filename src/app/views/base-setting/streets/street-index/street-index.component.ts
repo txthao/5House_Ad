@@ -55,6 +55,7 @@ export class StreetIndexComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
+    this.selectedAll = false;
     this.currentPage = event.page;
     this.searchStreets();
   }
@@ -145,11 +146,11 @@ export class StreetIndexComponent implements OnInit {
           this.itemsPerPage = res.data.per_page;
           this.streets_name = this.streets.map(item => item.street_name);
 
-          // for(var i = 0; i<this.streets.length; i++){
-          //   for(var j = i+1; j<i;j++) {
+          for(var i = 0; i<this.streets.length; i++){
+            for(var j = i+1; j<i;j++) {
 
-          //   }
-          // }
+            }
+          }
         }
       },
       err => {

@@ -48,6 +48,7 @@ export class WardIndexComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
+    this.selectedAll = false;
     this.currentPage = event.page;
     this.getWards();
   }

@@ -42,6 +42,7 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
+    this.selectedAll = false;
     this.currentPage = event.page;
     this.getDistricts();
   }
