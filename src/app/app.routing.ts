@@ -75,6 +75,11 @@ export const routes: Routes = [
         loadChildren: './views/base-setting/categories/categories.module#CategoriesModule',
         canActivate: [AuthGuard]
       },
+      {
+        path: 'customers',
+        loadChildren: './views/customers/customers.module#CustomersModule',
+        canActivate: [AuthGuard]
+      }
     ]
   }
 ];

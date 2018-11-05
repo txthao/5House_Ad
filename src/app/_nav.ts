@@ -41,6 +41,12 @@ export const navItems = [
   },
 
   {
+    name: 'Customers',
+    url: '/customers',
+    icon: 'icon-people',
+  },
+
+  {
     divider: true
   },
   {

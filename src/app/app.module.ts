@@ -49,6 +49,7 @@ import {DistrictsModule} from './views/base-setting/districts/districts.module';
 import {WardsModule} from './views/base-setting/wards/wards.module';
 import {StreetsModule} from './views/base-setting/streets/streets.module';
 import { CategoriesModule } from './views/base-setting/categories/categories.module';
+import { CustomersModule } from './views/customers/customers.module';
 
 @NgModule({
   imports: [
@@ -69,7 +70,8 @@ import { CategoriesModule } from './views/base-setting/categories/categories.mod
     DistrictsModule,
     WardsModule,
     StreetsModule,
-    CategoriesModule
+    CategoriesModule,
+    CustomersModule,
   ],
   declarations: [
     AppComponent,

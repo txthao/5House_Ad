@@ -14,4 +14,5 @@ export class ApiConstants {
   public static readonly WARD_API = ApiConstants.ADMIN_API + '/wards';
   public static readonly STREET_API = ApiConstants.ADMIN_API + '/streets';
   public static readonly CATEGORY_API = ApiConstants.ADMIN_API + '/categories';
+  public static readonly CUSTOMER_API = ApiConstants.ADMIN_API + '/customers';
 }
