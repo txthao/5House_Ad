@@ -11,7 +11,7 @@ export class Customer {
     is_active: string;
     is_locked: number;
     is_verified: number;
-    number_reported: number;
+    count_report: number;
     login_type: string;
     created_at: string;
     created_by: string;
