@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -37,19 +38,25 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ProvincesModule } from './views/base-setting/provinces/provinces.module';
+
+//observal
+import {DispatchArg} from 'rxjs/internal/observable/SubscribeOnObservable';
+
+//share service
+
 import { AlertService } from './shared/services/alert.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthenticateService } from './shared/services/authenticate.service';
-import { FormsModule } from '@angular/forms';
-import {DispatchArg} from 'rxjs/internal/observable/SubscribeOnObservable';
+
+// created module
+import { SharedModule } from './shared/shared.module';
+import { ProvincesModule } from './views/base-setting/provinces/provinces.module';
 import {DistrictsModule} from './views/base-setting/districts/districts.module';
 import {WardsModule} from './views/base-setting/wards/wards.module';
-import {StreetsModule} from './views/base-setting/streets/streets.module';
+import {StreetsModule} from './views/base-setting/streets/streets.module'
 import { CategoriesModule } from './views/base-setting/categories/categories.module';
 import { CustomersModule } from './views/customers/customers.module';
+import { PostsModule } from './views/posts/posts.module';
 
 @NgModule({
   imports: [
@@ -72,6 +79,7 @@ import { CustomersModule } from './views/customers/customers.module';
     StreetsModule,
     CategoriesModule,
     CustomersModule,
+    PostsModule
   ],
   declarations: [
     AppComponent,

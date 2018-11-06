@@ -9,6 +9,11 @@ export const navItems = [
     name: 'Management'
   },
   {
+    name: 'Posts',
+    url: '/posts',
+    icon: 'icon-note',
+  },
+  {
     name: 'Base Setting',
     icon: 'icon-puzzle',
     children: [
@@ -61,21 +66,6 @@ export const navItems = [
       {
         name: 'Login',
         url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 404',
-        url: '/404',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 500',
-        url: '/500',
         icon: 'icon-star'
       }
     ]

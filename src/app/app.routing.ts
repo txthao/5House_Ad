@@ -51,6 +51,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'posts',
+        loadChildren: './views/posts/posts.module#PostsModule',
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'provinces',
         loadChildren: './views/base-setting/provinces/provinces.module#ProvincesModule',
         canActivate: [AuthGuard]
