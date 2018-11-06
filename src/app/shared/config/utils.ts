@@ -69,9 +69,8 @@ export class Utils {
         return str;
     }
 
-    // public static formatDisplayPhoneNumber(phoneNumber: string) {
-    //     var str: string = phoneNumber;
-    //     console.log(str.substring(0, 4));
-    //     return str ? "str.substring(0, 4) + '***' + str.substring(7)" : "";
-    // }
+    public static formatDisplayPhoneNumber(phoneNumber) {
+        var str = phoneNumber;
+        return str ? str.toString().substr(0, 4) + '***' + str.toString().substr(7) : "";
+    }
 }

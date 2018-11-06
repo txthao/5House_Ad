@@ -49,20 +49,20 @@ export class CustomersService extends APIService {
     }
 
     public getCustomer(id: string) {
-        return super.apiGet<ApiResult>(ApiConstants.CUSTOMER_API + '/' + id);
+        return super.apiGet<ApiResult>(ApiConstants.CUSTOMER_API + '/details/' + id);
     }
 
     public activeCustomer(name: string, id: string) {
         let data = {
             "updated_by": name
         } 
-        return super.apiPost<ApiResult>(ApiConstants.CUSTOMER_API + '/account_activation/' + id, data);
+        return super.apiPost<ApiResult>(ApiConstants.CUSTOMER_API + '/active-account/' + id, data);
     }
 
     public lockCustomer(name: string, id: string) {
         let data = {
             "updated_by": name
         } 
-        return super.apiPost<ApiResult>(ApiConstants.CUSTOMER_API + '/lock_account/' + id, data);
+        return super.apiPost<ApiResult>(ApiConstants.CUSTOMER_API + '/locked-account/' + id, data);
     }
 }

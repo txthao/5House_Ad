@@ -1,3 +1,71 @@
-<p>
-  customer-details works!
-</p>
+<div class="row">
+  <!--/.col-->
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <strong> Customer Details</strong>
+      </div>
+      <div class="card-body row">
+        <div class="col-md-8">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Name</label>
+            <div class="col-md-9">
+              <input type="text" name="name" class="form-control" [readonly]="true" [(ngModel)]="customer.name"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Gender</label>
+            <div class="col-md-9">
+              <!-- Default unchecked -->
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="male" name="male" [value]="1" [(ngModel)]="customer.gender" disabled>
+                <label class="custom-control-label" for="male">Male</label>
+              </div>
+
+              <!-- Default checked -->
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="female" name="female" [value]="0" [(ngModel)]="customer.gender" disabled>
+                <label class="custom-control-label" for="female">Female</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Birthday</label>
+            <div class="col-md-9">
+              <input type="text" name="birthday" class="form-control" [readonly]="true" [(ngModel)]="customer.birthday"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Email</label>
+            <div class="col-md-9">
+              <input type="text" name="email" class="form-control" [readonly]="true" [(ngModel)]="customer.email"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Phone</label>
+            <div class="col-md-9">
+              <input type="text" name="phone" class="form-control" [readonly]="true" [(ngModel)]="customer.phone"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Address</label>
+            <div class="col-md-9">
+              <textarea rows="2" name="address" class="form-control" [readonly]="true" [(ngModel)]="customer.address"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Profile</label>
+            <div class="col-md-9">
+              <textarea rows="5" name="profile" class="form-control" [readonly]="true" [(ngModel)]="customer.profile"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <img *ngIf="customer.gender !== 0 && !customer.profile_image" src="../../../../assets/img/avatars/male.jpg" height="200"/>
+          <img *ngIf="customer.gender === 0 && !customer.profile_image" src="../../../../assets/img/avatars/famale.png" height="200"/>
+          <img *ngIf="customer.profile_image" src={{customer.profile_image}} height="200"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

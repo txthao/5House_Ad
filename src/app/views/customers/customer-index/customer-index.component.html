@@ -55,7 +55,6 @@
           <table class="table table-striped">
             <thead>
             <tr>
-              <!-- <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="checkAll()"/></th> -->
               <th>Name</th>
               <th>Email</th>
               <th>Phone Number</th>
@@ -73,8 +72,11 @@
               <td colspan="11" align="center">No data</td>
             </tr>
             <tr *ngFor="let cus of customers">
-              <!-- <td><input type="checkbox" [(ngModel)]="customer.checked" (change)="updateCheck()"/></td> -->
-              <td>{{cus.name}}</td>
+              <td>
+                  <a [routerLink]="[cus.id]">
+                    {{cus.name}}
+                  </a>
+              </td>
               <td>{{cus.email}}</td>
               <td>{{cus.phone}}</td>
               <td>{{cus.created_at}}</td>
@@ -101,13 +103,6 @@
             </tbody>
           </table>
           
-          <!-- <div class="row" style="margin-bottom: 10px" *ngIf="streets && streets.length > 0 && isChecked === true">
-            <div class="col-lg-9 col-md-9"></div>
-            <div class="col-lg-2 col-md-2">
-              <button class="btn btn-danger btn-sm ml-1">Delete All</button>
-            </div>
-          </div> -->
-
           <div class="pagination row">
             <div class="col-xs-12 col-12">
               <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md"

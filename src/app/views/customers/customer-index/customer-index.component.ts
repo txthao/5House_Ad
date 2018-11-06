@@ -50,10 +50,9 @@ export class CustomerIndexComponent implements OnInit {
           this.customers = res.data.data;
           this.totalItems = res.data.total;
           this.itemsPerPage = res.data.per_page;
-          // this.customers.forEach(i => {
-          //   i.phone = Utils.formatDisplayPhoneNumber(i.phone);
-          // })
-          console.log(this.customers);
+          this.customers.forEach(i => {
+            i.phone = Utils.formatDisplayPhoneNumber(i.phone);
+          })
         }
       },
       err => {
@@ -86,33 +85,5 @@ export class CustomerIndexComponent implements OnInit {
         console.log(err);
       });
   }
-
-  // checkAll() {
-  //   console.log(this.selectedAll);
-
-  //   if (this.selectedAll) {
-  //     this.customers.forEach(i => {
-  //       i.checked = true;
-  //       this.isChecked = true;
-  //     });
-  //   } else {
-  //     this.customers.forEach(i => {
-  //       i.checked = false;
-  //       this.isChecked = false;
-  //     });
-  //   }
-    
-  // }
-
-  // updateCheck() {
-  //   this.selectedAll = this.customers.every(i => i.checked === true);
-    
-  //   this.isChecked = false;
-  //   this.customers.forEach(i => {
-  //     if (i.checked) {this.isChecked = true;}
-  //   });
-
-  //   console.log(this.isChecked);
-  // }
 
 }
