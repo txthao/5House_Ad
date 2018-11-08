@@ -37,12 +37,11 @@ export class DistrictIndexComponent implements OnInit {
     this.authService.session$.subscribe(data => this.session = data);
     this.getProvinces();
     this.getDistricts();
-
-    console.log(this.isChecked);
   }
 
   pageChanged(event: any): void {
     this.selectedAll = false;
+    this.isChecked = false;
     this.currentPage = event.page;
     this.getDistricts();
   }
@@ -76,7 +75,7 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   searchDistricts(provinceId: string = null, districtName: string = null) {
-    this.districtsService.searchDistricts(provinceId, districtName).subscribe(
+    this.districtsService.searchDistricts(this.currentPage, provinceId, districtName).subscribe(
       res => {
         if (res.success) {
           this.districts = res.data;
@@ -95,7 +94,7 @@ export class DistrictIndexComponent implements OnInit {
 
     this.districtsService.deleteDistrict(this.session.name, ids).subscribe(
       res => {
-        if (res.success) {        
+        if (res.success) {
           this.alertService.success('Successfully Deleted!!!');
           this.getDistricts();
         }
@@ -113,8 +112,6 @@ export class DistrictIndexComponent implements OnInit {
         ids.push(i.id);
       }
     });
-
-    console.log(ids);
 
     this.districtsService.deleteDistrict(this.session.name, ids).subscribe(
       res => {
@@ -141,8 +138,6 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   checkAll() {
-    console.log(this.selectedAll);
-
     if (this.selectedAll) {
       this.districts.forEach(i => {
         i.checked = true;
@@ -154,18 +149,16 @@ export class DistrictIndexComponent implements OnInit {
         this.isChecked = false;
       });
     }
-    
+
   }
 
   updateCheck() {
     this.selectedAll = this.districts.every(i => i.checked === true);
-    
+
     this.isChecked = false;
     this.districts.forEach(i => {
-      if (i.checked) {this.isChecked = true;}
+      if (i.checked) { this.isChecked = true; }
     });
-
-    console.log(this.isChecked);
   }
 
   search = (text$: Observable<string>) =>

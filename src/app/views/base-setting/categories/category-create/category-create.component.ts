@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { AuthenticateService } from '../../../../shared/services/authenticate.service';
 import { CategoriesService } from '../../../../shared/services/categories.service';
-import { Type } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-category-create',

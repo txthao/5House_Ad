@@ -30,22 +30,6 @@ export class CategoriesService extends APIService {
 
     }
 
-    // public searchCategories(typeId: string = null, categoryName: string = null) {
-
-    //     let params = '';
-
-    //     if (typeId) {
-    //         params = "?type_id=" + typeId;
-    //     }
-
-    //     if (categoryName) {
-    //         params += params ? '&category_name=' : '?category_name=';
-    //         params += categoryName;
-    //     }
-
-    //     return super.apiGet<ApiResult>(ApiConstants.CATEGORY_API + '/find' + params);
-    // }
-
     public createCategory(name: string, typeId: string, categoryName: string) {
         let data = {
             "created_by": name,

@@ -16,8 +16,6 @@ export class CustomerIndexComponent implements OnInit {
   totalItems: number;
   currentPage = 1;
   itemsPerPage: number;
-  selectedAll = false;
-  isChecked = false;
   customers: Customer[];
   customer: Customer = new Customer();
   session: Session;
@@ -28,12 +26,12 @@ export class CustomerIndexComponent implements OnInit {
   ngOnInit() {
     this.customer.login_type = "";
     this.customer.is_active = "";
+    this.customer.is_reported = "";
     this.authService.session$.subscribe(data => this.session = data);
     this.searchCustomers();
   }
 
   pageChanged(event: any): void {
-    this.selectedAll = false;
     this.currentPage = event.page;
     this.searchCustomers();
   }
@@ -43,7 +41,6 @@ export class CustomerIndexComponent implements OnInit {
   }
 
   searchCustomers(customer: Customer = null) {
-    this.selectedAll = false;
     this.customersService.searchCustomers(this.currentPage, customer).subscribe(
       res => {
         if (res.success) {
@@ -65,7 +62,7 @@ export class CustomerIndexComponent implements OnInit {
       res => {
         if (res.success) {        
           this.alertService.success('Successfully Actived!!!');
-          this.searchCustomers();
+          this.searchCustomers(this.customer);
         }
       },
       err => {
@@ -78,7 +75,7 @@ export class CustomerIndexComponent implements OnInit {
       res => {
         if (res.success) {        
           this.alertService.success('Successfully Locked!!!');
-          this.searchCustomers();
+          this.searchCustomers(this.customer);
         }
       },
       err => {

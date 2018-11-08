@@ -43,6 +43,11 @@ export class CustomersService extends APIService {
                 params += params ? '&login_type=' : '?login_type=';
                 params += customer.login_type;
             }
+
+            if (customer.is_reported) {
+                params += params ? '&is_reported=' : '?is_reported=';
+                params += customer.is_reported;
+            }
         }
 
         return super.apiGet<ApiResult>(ApiConstants.CUSTOMER_API + '/find' + params);

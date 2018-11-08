@@ -50,12 +50,11 @@ export class StreetIndexComponent implements OnInit {
     this.searchDistricts(this.selectedProvince, null);
     this.searchWards();
     this.searchStreets();
-
-    // console.log(this.isChecked);
   }
 
   pageChanged(event: any): void {
     this.selectedAll = false;
+    this.isChecked = false;
     this.currentPage = event.page;
     this.searchStreets();
   }
@@ -110,7 +109,7 @@ export class StreetIndexComponent implements OnInit {
   }
 
   searchDistricts(provinceId: string = null, districtName: string = null) {
-    this.districtsService.searchDistricts(provinceId, districtName).subscribe(
+    this.districtsService.searchDistricts(null, provinceId, districtName).subscribe(
       res => {
         if (res.success) {
           this.districts = res.data;
@@ -122,7 +121,7 @@ export class StreetIndexComponent implements OnInit {
   }
 
   searchWards(provinceId: string = null, districtId: string = null, wardName: string = null) {
-    this.wardsService.searchWards(provinceId, districtId, wardName).subscribe(
+    this.wardsService.searchWards(null, provinceId, districtId, wardName).subscribe(
       res => {
         if (res.success) {
           this.wards = res.data;
@@ -147,15 +146,7 @@ export class StreetIndexComponent implements OnInit {
           this.streets_name = this.streets.map(item => item.street_name);
 
           //Remove the duplicate item in array
-          for (var i = 0; i < this.streets_name.length - 1; i++) {
-            for (var j = i + 1; j < this.streets_name.length; j++) {
-              if (this.streets_name[i] === this.streets_name[j]) {
-                this.streets_name[j] = this.streets_name[j + 1]
-                this.streets_name.length--;
-                i--;
-              }
-            }
-          }
+          this.streets_name = this.streets_name.filter((name, i, a) => i === a.indexOf(name));
         }
       },
       err => {
@@ -188,8 +179,6 @@ export class StreetIndexComponent implements OnInit {
       }
     });
 
-    console.log(streets);
-
     if (streets.length > 0) {
       this.streetsService.deleteStreetWard(streets).subscribe(
         res => {
@@ -206,8 +195,6 @@ export class StreetIndexComponent implements OnInit {
   }
 
   checkAll() {
-    console.log(this.selectedAll);
-
     if (this.selectedAll) {
       this.streets.forEach(i => {
         i.checked = true;
@@ -229,12 +216,9 @@ export class StreetIndexComponent implements OnInit {
     this.streets.forEach(i => {
       if (i.checked) { this.isChecked = true; }
     });
-
-    console.log(this.isChecked);
   }
 
   goDetailStreet(street) {
-    console.log(street)
     this.router.navigate(['/streets/' + street.id], { queryParams: { province_id: street.province_id, district_id: street.district_id, ward_id: street.ward_id } });
   }
 

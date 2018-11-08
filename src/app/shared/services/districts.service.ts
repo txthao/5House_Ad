@@ -20,11 +20,16 @@ export class DistrictsService extends APIService {
     return super.apiGet<ApiResult>(ApiConstants.ADMIN_API + '/districts' + params);
   }
 
-  public searchDistricts(provinceId: string = null, districtName: string = null) {
+  public searchDistricts(page: number = null, provinceId: string = null, districtName: string = null) {
     let params = '';
 
+    if (page) {
+      params += `?page=${page}`;
+    }
+
     if (provinceId) {
-      params = "?province_id=" + provinceId;
+      params += params ? '&province_id=' : '?province_id=';
+      params += provinceId;
     }
 
     if (districtName) {

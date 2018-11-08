@@ -20,11 +20,16 @@ export class WardsService extends APIService {
     return super.apiGet<ApiResult>(ApiConstants.ADMIN_API + '/wards' + params);
   }
 
-  public searchWards(provinceId: string = null, districtId: string = null, wardName: string = null) {
+  public searchWards(page: number = null, provinceId: string = null, districtId: string = null, wardName: string = null) {
     let params = '';
 
+    if (page) {
+      params += `?page=${page}`;
+    }
+
     if (provinceId) {
-      params = "?province_id=" + provinceId;
+      params += params ? '&province_id=' : '?province_id=';
+      params += provinceId;
     }
 
     if (districtId) {

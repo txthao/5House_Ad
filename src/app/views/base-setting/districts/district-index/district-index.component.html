@@ -15,7 +15,8 @@
             <div class="col-lg-4">
               <div class="form-group">
                 <label for="provinces">Provinces</label>
-                <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="selectedProvince" (ngModelChange)="onSelectedProvince($event)">
+                <select class="form-control" id="provinces" name="select-provinces" [(ngModel)]="selectedProvince"
+                  (ngModelChange)="onSelectedProvince($event)">
                   <option value="">All Provinces</option>
                   <option *ngFor="let item of provinces" [ngValue]="item.id"> {{ item.province_name }}</option>
                 </select>
@@ -24,49 +25,51 @@
             <div class="col-lg-4">
               <div class="form-group">
                 <label for="typeahead-format">Districts</label>
-                <input id="typeahead-format" type="text" name="select-districts" class="form-control" [(ngModel)]="selectedDistrict" [ngbTypeahead]="search"/>
+                <input id="typeahead-format" type="text" name="select-districts" class="form-control" [(ngModel)]="selectedDistrict"
+                  [ngbTypeahead]="search" />
               </div>
             </div>
-            <div class="col-lg-2" style="display: flex; align-items: center; justify-content: center;">
+            <div class="col-lg-2" style="display: flex; align-items: center;">
               <button type="submit" class="btn btn-primary" style="margin-top: 12px">Search</button>
             </div>
           </form>
+
+          <div class="row" style="margin-bottom: 10px" *ngIf="districts && districts.length > 0 && isChecked === true">
+            <div class="col-lg-2 col-md-2">
+              <button class="btn btn-danger btn-sm ml-1" (click)="deleteAllDistricts()">Delete All</button>
+            </div>
+          </div>
+
           <table class="table table-striped">
             <thead>
-            <tr>
-              <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="checkAll()"/></th>
-              <th>Name</th>
-              <th>Province</th>
-              <th>Action</th>
-            </tr>
+              <tr>
+                <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="checkAll()" /></th>
+                <th>Name</th>
+                <th>Province</th>
+                <th>Action</th>
+              </tr>
             </thead>
             <tbody>
-            <tr *ngIf="!districts || districts.length === 0" class="warning">
-              <td colspan="11" align="center">No data</td>
-            </tr>
-            <tr *ngFor="let district of districts">
-              <td><input type="checkbox" [(ngModel)]="district.checked" (change)="updateCheck()"/></td>
-              <td>{{district.district_name}}</td>
-              <td>{{district.province_name}}</td>
-              <td>
-                <span class="btn btn-success btn-sm" [routerLink]="[district.id]">Edit</span>
-                <span class="btn btn-danger btn-sm ml-1" (click)="deleteDistrict(district.id)">Delete</span>
-              </td>
-            </tr>
+              <tr *ngIf="!districts || districts.length === 0" class="warning">
+                <td colspan="11" align="center">No data</td>
+              </tr>
+              <tr *ngFor="let district of districts">
+                <td><input type="checkbox" [(ngModel)]="district.checked" (change)="updateCheck()" /></td>
+                <td>{{district.district_name}}</td>
+                <td>{{district.province_name}}</td>
+                <td>
+                  <span class="btn btn-success btn-sm" [routerLink]="[district.id]">Edit</span>
+                  <span class="btn btn-danger btn-sm ml-1" (click)="deleteDistrict(district.id)">Delete</span>
+                </td>
+              </tr>
             </tbody>
           </table>
-          
-          <div *ngIf="districts && districts.length > 0 && isChecked === true" style="margin-left: 70%; margin-bottom: 20px">
-            <button class="btn btn-danger btn-sm ml-1" (click)="deleteAllDistricts()">Delete All</button>
-          </div>
 
           <div class="pagination row">
             <div class="col-xs-12 col-12">
               <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-md"
-                          previousText="&lsaquo;"
-                          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
-                          [rotate]="false" [itemsPerPage]="itemsPerPage"
-                          (pageChanged)="pageChanged($event)"></pagination>
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+                [rotate]="false" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
             </div>
           </div>
         </div>

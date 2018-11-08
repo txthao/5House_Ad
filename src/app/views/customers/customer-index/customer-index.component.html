@@ -9,27 +9,27 @@
 
         <div class="card-body">
           <form class="row" style="margin-bottom: 20px" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSearch()">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input id="name" type="text" name="name" class="form-control" [(ngModel)]="customer.name" placeholder="Nguyen Van A" />
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group">
                 <label for="email">Email</label>
                 <input id="email" type="email" name="email" class="form-control" [(ngModel)]="customer.email"
                   placeholder="email@gmail.com" />
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group">
                 <label for="phone">Phone</label>
                 <input id="phone" type="text" name="phone" class="form-control" [(ngModel)]="customer.phone"
-                  placeholder="0167222345" />
+                  placeholder="0165090155" />
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group">
                 <label for="login-type">Login Type</label>
                 <select class="form-control" id="login-type" name="login-type" [(ngModel)]="customer.login_type">
@@ -40,17 +40,27 @@
                 </select>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group">
-                <label for="login-type">Status</label>
-                <select class="form-control" id="login-type" name="login-type" [(ngModel)]="customer.is_active">
-                  <option value="">All Status</option>
-                  <option value="1">Activated</option>
-                  <option value="0">Not Activated</option>
+                <label for="activation">Activation</label>
+                <select class="form-control" id="activation" name="activation" [(ngModel)]="customer.is_active">
+                  <option value="">All</option>
+                  <option value="active">Activated</option>
+                  <option value="inactive">Not Activated</option>
                 </select>
               </div>
             </div>
-            <div class="col-lg-2" style="display: flex; align-items: center; justify-content: center;">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="reported">Report</label>
+                <select class="form-control" id="reported" name="reported" [(ngModel)]="customer.is_reported">
+                  <option value="">All</option>
+                  <option value="report">Reported</option>
+                  <option value="notreport">Not Reported</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-2" style="display: flex; align-items: center;">
               <button type="submit" class="btn btn-primary" style="margin-top: 12px">Search</button>
             </div>
           </form>
