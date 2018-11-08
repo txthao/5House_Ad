@@ -35,7 +35,7 @@ export class StreetIndexComponent implements OnInit {
   selectedDistrict: any = '';
   selectedWard: any = '';
   selectedStreet: any;
-  selectedAll = false;
+  checkedAll = false;
   isChecked = false;
   session: Session;
 
@@ -53,14 +53,14 @@ export class StreetIndexComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.selectedAll = false;
+    this.checkedAll = false;
     this.isChecked = false;
     this.currentPage = event.page;
     this.searchStreets();
   }
 
   onSearch() {
-    this.selectedAll = false;
+    this.checkedAll = false;
     this.searchStreets(this.selectedProvince, this.selectedDistrict, this.selectedWard, this.selectedStreet);
   }
 
@@ -69,7 +69,7 @@ export class StreetIndexComponent implements OnInit {
     this.selectedWard = '';
     this.selectedStreet = '';
     this.selectedProvince = value;
-    this.selectedAll = false;
+    this.checkedAll = false;
 
     this.searchDistricts(this.selectedProvince);
     this.searchWards(this.selectedProvince);
@@ -81,7 +81,7 @@ export class StreetIndexComponent implements OnInit {
     this.selectedDistrict = value;
     this.selectedWard = '';
     this.selectedStreet = '';
-    this.selectedAll = false;
+    this.checkedAll = false;
 
     this.searchWards(this.selectedProvince, this.selectedDistrict);
     this.searchStreets(this.selectedProvince, this.selectedDistrict);
@@ -90,7 +90,7 @@ export class StreetIndexComponent implements OnInit {
   onSelectedWard(value) {
     this.selectedWard = value;
     this.selectedStreet = '';
-    this.selectedAll = false;
+    this.checkedAll = false;
 
     //search street
     this.searchStreets(this.selectedProvince, this.selectedDistrict, this.selectedWard);
@@ -195,7 +195,7 @@ export class StreetIndexComponent implements OnInit {
   }
 
   checkAll() {
-    if (this.selectedAll) {
+    if (this.checkedAll) {
       this.streets.forEach(i => {
         i.checked = true;
         this.isChecked = true;
@@ -210,7 +210,7 @@ export class StreetIndexComponent implements OnInit {
   }
 
   updateCheck() {
-    this.selectedAll = this.streets.every(i => i.checked === true);
+    this.checkedAll = this.streets.every(i => i.checked === true);
 
     this.isChecked = false;
     this.streets.forEach(i => {

@@ -83,7 +83,7 @@ export class WardCreateComponent implements OnInit {
   }
 
   searchDistricts(provinceId: string = null, districtName: string = null) {
-    this.districtsService.searchDistricts(provinceId, districtName).subscribe(
+    this.districtsService.searchDistricts(null, provinceId, districtName).subscribe(
       res => {
         if (res.success) {
           this.districts = res.data;

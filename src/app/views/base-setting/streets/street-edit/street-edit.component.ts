@@ -75,7 +75,7 @@ export class StreetEditComponent implements OnInit {
   }
 
   searchDistricts(provinceId: string = null, districtName: string = null) {
-    this.districtsService.searchDistricts(provinceId, districtName).subscribe(
+    this.districtsService.searchDistricts(null, provinceId, districtName).subscribe(
       res => {
         if (res.success) {
           this.districts = res.data;
@@ -87,7 +87,7 @@ export class StreetEditComponent implements OnInit {
   }
 
   searchWards(provinceId: string = null, districtId: string = null, wardName: string = null) {
-    this.wardsService.searchWards(provinceId, districtId, wardName).subscribe(
+    this.wardsService.searchWards(null, provinceId, districtId, wardName).subscribe(
       res => {
         if (res.success) {
           this.wards = res.data;

@@ -25,7 +25,7 @@ export class DistrictIndexComponent implements OnInit {
   districts_name = [];
   selectedProvince: any = '';
   selectedDistrict: any;
-  selectedAll = false;
+  checkedAll = false;
   isChecked = false;
   session: Session;
 
@@ -40,7 +40,7 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.selectedAll = false;
+    this.checkedAll = false;
     this.isChecked = false;
     this.currentPage = event.page;
     this.getDistricts();
@@ -49,13 +49,13 @@ export class DistrictIndexComponent implements OnInit {
   onSelectedProvince(value) {
     this.selectedDistrict = "";
     this.selectedProvince = value;
-    this.selectedAll = false;
+    this.checkedAll = false;
 
     this.searchDistricts(this.selectedProvince, null);
   }
 
   onSearch() {
-    this.selectedAll = false;
+    this.checkedAll = false;
     this.searchDistricts(this.selectedProvince, this.selectedDistrict);
   }
 
@@ -138,7 +138,7 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   checkAll() {
-    if (this.selectedAll) {
+    if (this.checkedAll) {
       this.districts.forEach(i => {
         i.checked = true;
         this.isChecked = true;
@@ -153,7 +153,7 @@ export class DistrictIndexComponent implements OnInit {
   }
 
   updateCheck() {
-    this.selectedAll = this.districts.every(i => i.checked === true);
+    this.checkedAll = this.districts.every(i => i.checked === true);
 
     this.isChecked = false;
     this.districts.forEach(i => {

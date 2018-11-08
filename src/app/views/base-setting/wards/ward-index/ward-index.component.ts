@@ -30,7 +30,7 @@ export class WardIndexComponent implements OnInit {
   selectedProvince: any = '';
   selectedDistrict: any = '';
   selectedWard: any;
-  selectedAll = false;
+  checkedAll = false;
   isChecked = false;
   session: Session;
 
@@ -46,14 +46,14 @@ export class WardIndexComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.selectedAll = false;
+    this.checkedAll = false;
     this.isChecked = false;
     this.currentPage = event.page;
     this.getWards();
   }
 
   onSearch() {
-    this.selectedAll = false;
+    this.checkedAll = false;
     this.searchWards(this.selectedProvince, this.selectedDistrict, this.selectedWard);
   }
 
@@ -61,7 +61,7 @@ export class WardIndexComponent implements OnInit {
     this.selectedDistrict = '';
     this.selectedWard = '';
     this.selectedProvince = value;
-    this.selectedAll = false;
+    this.checkedAll = false;
 
     this.searchDistricts(this.selectedProvince, null);
     this.searchWards(this.selectedProvince, null, null);
@@ -70,7 +70,7 @@ export class WardIndexComponent implements OnInit {
   onSelectedDistrict(value) {
     this.selectedDistrict = value;
     this.selectedWard = '';
-    this.selectedAll = false;
+    this.checkedAll = false;
     
     this.searchWards(this.selectedProvince, this.selectedDistrict, null);
   }
@@ -168,7 +168,7 @@ export class WardIndexComponent implements OnInit {
   }
 
   checkAll() {
-    if (this.selectedAll) {
+    if (this.checkedAll) {
       this.wards.forEach(i => {
         i.checked = true;
         this.isChecked = true;
@@ -183,7 +183,7 @@ export class WardIndexComponent implements OnInit {
   }
 
   updateCheck() {
-    this.selectedAll = this.wards.every(i => i.checked === true);
+    this.checkedAll = this.wards.every(i => i.checked === true);
     
     this.isChecked = false;
     this.wards.forEach(i => {
